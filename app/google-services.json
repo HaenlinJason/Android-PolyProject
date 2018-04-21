@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "773096414962",
+    "firebase_url": "https://poly-database.firebaseio.com",
+    "project_id": "poly-database",
+    "storage_bucket": "poly-database.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:773096414962:android:1d103e35fd476c16",
+        "android_client_info": {
+          "package_name": "com.incident.polyandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "773096414962-d0cmrcqm9s15ar37c7bpc3kscra8v5vb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.incident.polyandroid",
+            "certificate_hash": "396c618011ec23f052f869593284fe8e6c3e9d45"
+          }
+        },
+        {
+          "client_id": "773096414962-tpct16iosfhi8smsmqc81jf5bc9vg8io.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBD6aCYcK-TzK-JTGykaYPDfnAWML1iBbs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "773096414962-tpct16iosfhi8smsmqc81jf5bc9vg8io.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
