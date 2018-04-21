@@ -3,6 +3,7 @@ package com.incident.polyandroid.polyandroid;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +18,8 @@ import com.incident.polyandroid.polyandroid.database.FireBaseBasic;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final String TAG = "DEBUG_DB";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +47,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         FireBaseBasic db  = new FireBaseBasic();
-        db.writeData("test","hello world !");
-
-        
-
+        db.subscribeSimpleData("test");
+        db.writeSimpleData("test","hello world !");
     }
 
     @Override
