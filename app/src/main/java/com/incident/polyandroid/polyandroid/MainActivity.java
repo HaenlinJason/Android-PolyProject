@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         FireBaseBasic db  = new FireBaseBasic();
-        db.subscribeSimpleData("test");
-        db.writeSimpleData("test","hello world !");
+        db.writeNewUser("2","akki","akki@user.com");
+        db.subscribeUserData("1");
     }
 
     @Override
