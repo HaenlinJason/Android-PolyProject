@@ -35,11 +35,11 @@ public abstract class EventListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        Log.d(TAG,"my fragment view created");
+        Log.d(TAG, "my fragment view created");
         View rootView = inflater.inflate(R.layout.fragment_all_event, container, false);
         mContext = this.getContext();
         //init FireBaseBasic and get the reference to it
-        mDatabase = new FireBaseBasic();
+        mDatabase = new FireBaseBasic("event");
         //init the recyclerView with the container et set it to a fixed size
         mRecycler = rootView.findViewById(R.id.events_list);
         mRecycler.setHasFixedSize(true);
@@ -59,15 +59,16 @@ public abstract class EventListFragment extends Fragment {
 
         mAdapter = new FirebaseRecyclerAdapter<EventModel, EventViewHolder>(options) {
 
-            @NonNull
             @Override
             public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
+                Log.d(TAG, "view holder create");
                 return new EventViewHolder(itemView);
             }
 
             @Override
             protected void onBindViewHolder(@NonNull EventViewHolder holder, int position, @NonNull EventModel model) {
+                Log.d(TAG, "view holder bind");
                 holder.bindToEvent(model, mContext);
             }
         };
@@ -78,6 +79,7 @@ public abstract class EventListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        Log.d(TAG, "start");
         if (mAdapter != null) {
             mAdapter.startListening();
         }
@@ -86,6 +88,7 @@ public abstract class EventListFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
+        Log.d(TAG, "stop");
         if (mAdapter != null) {
             mAdapter.stopListening();
         }

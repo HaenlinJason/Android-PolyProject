@@ -42,7 +42,7 @@ public class EventModel {
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + "[title," + title + "],[section," + section + "],[locate," + locate + "],[date," + date + "]";
+        return getClass().getSimpleName() + "=[TITLE:" + title + "],[SECTION:" + section + "],[LOCATE:" + locate + "],[DATE:" + date + "]";
     }
 
 }

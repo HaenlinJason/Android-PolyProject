@@ -16,17 +16,19 @@ public class FireBaseBasic {
 
     private static final String TAG = "DEBUG_DB";
     private DatabaseReference mDatabase;
+    private String post;
 
-    public FireBaseBasic() {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+    public FireBaseBasic(String post) {
+        this.post = post;
+        mDatabase = FirebaseDatabase.getInstance().getReference(post);
     }
 
     public void pushNewsEvent(EventModel newEvent) {
         EventModel event = newEvent;
-        String key = mDatabase.child("events").push().getKey();
+        String key = mDatabase.child(post).push().getKey();
         Log.d(TAG, "key :" + key);
         Map<String, Object> childUpdate = new HashMap<>();
-        childUpdate.put("/events/" + key, event.toMap());
+        childUpdate.put("/" + post + "/" + key, event.toMap());
         mDatabase.updateChildren(childUpdate);
     }
 
@@ -35,7 +37,7 @@ public class FireBaseBasic {
      */
     public void subscribeEventsData(boolean singleListen) {
         // retrieve the instance and get the reference
-        mDatabase = FirebaseDatabase.getInstance().getReference("events");
+        mDatabase = FirebaseDatabase.getInstance().getReference(post);
         if (!singleListen)
             mDatabase.addListenerForSingleValueEvent(postListenerObject);
         else
@@ -65,5 +67,11 @@ public class FireBaseBasic {
 
     public DatabaseReference getReference() {
         return mDatabase;
+    }
+
+    public void cleanupListener() {
+        if (postListenerObject != null) {
+            mDatabase.removeEventListener(postListenerObject);
+        }
     }
 }

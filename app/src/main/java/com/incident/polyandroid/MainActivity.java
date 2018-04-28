@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.incident.polyandroid.database.FireBaseBasic;
 import com.incident.polyandroid.fragment.MyEventFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -52,8 +53,12 @@ public class MainActivity extends AppCompatActivity
 
         MyEventFragment fragment = new MyEventFragment();
 
-        fragmentTransaction.add(fragment, "myFragment");
+        fragmentTransaction.add(R.id.main_content_fragment, fragment);
         fragmentTransaction.commit();
+
+        FireBaseBasic fb = new FireBaseBasic("events");
+        fb.subscribeEventsData(true);
+
     }
 
     @Override
