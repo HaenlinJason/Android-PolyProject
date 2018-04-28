@@ -9,11 +9,13 @@ import java.util.Map;
 @IgnoreExtraProperties
 public class EventModel {
 
+    public String image;
     public String title;
     public String section;
     public String locate;
     public String description;
     public String date;
+    public String[] indicator_picture;
 
     public EventModel() {
 

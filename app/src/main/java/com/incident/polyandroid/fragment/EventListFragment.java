@@ -1,9 +1,11 @@
 package com.incident.polyandroid.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +21,12 @@ import com.incident.polyandroid.viewholder.EventViewHolder;
 
 public abstract class EventListFragment extends Fragment {
 
+    private static final String TAG = "DEBUG_DB";
+
     private FireBaseBasic mDatabase;
     private FirebaseRecyclerAdapter<EventModel, EventViewHolder> mAdapter;
     private RecyclerView mRecycler;
+    private Context mContext;
 
     public EventListFragment() {
     }
@@ -30,7 +35,9 @@ public abstract class EventListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+        Log.d(TAG,"my fragment view created");
         View rootView = inflater.inflate(R.layout.fragment_all_event, container, false);
+        mContext = this.getContext();
         //init FireBaseBasic and get the reference to it
         mDatabase = new FireBaseBasic();
         //init the recyclerView with the container et set it to a fixed size
@@ -43,7 +50,6 @@ public abstract class EventListFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         // Set up FireBaseRecyclerAdapter with the Query
         Query postsQuery = getQuery(mDatabase.getReference());
 
@@ -56,12 +62,13 @@ public abstract class EventListFragment extends Fragment {
             @NonNull
             @Override
             public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                return null;
+                View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
+                return new EventViewHolder(itemView);
             }
 
             @Override
             protected void onBindViewHolder(@NonNull EventViewHolder holder, int position, @NonNull EventModel model) {
-
+                holder.bindToEvent(model, mContext);
             }
         };
 
