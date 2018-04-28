@@ -2,10 +2,8 @@ package com.incident.polyandroid.polyandroid;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.incident.polyandroid.polyandroid.database.FireBaseBasic;
 
@@ -46,9 +45,9 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        FireBaseBasic db  = new FireBaseBasic();
-        db.writeNewUser("2","akki","akki@user.com");
-        db.subscribeUserData("1");
+        FireBaseBasic db = new FireBaseBasic();
+        db.pushNewsUser("4", "akky", "akky@user.com");
+        db.subscribeUserData("3");
     }
 
     @Override

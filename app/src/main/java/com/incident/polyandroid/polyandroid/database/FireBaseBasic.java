@@ -7,14 +7,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.incident.polyandroid.polyandroid.model.User;
+import com.incident.polyandroid.polyandroid.models.User;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class FireBaseBasic {
 
     private static final String TAG = "DEBUG_DB";
     private String dataRead = "";
-    FirebaseDatabase mDatabase;
-    DatabaseReference myRef;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference myRef;
 
     public FireBaseBasic() {
     }
@@ -37,6 +40,16 @@ public class FireBaseBasic {
         myRef.child("users").child(userId).setValue(user);
     }
 
+    public void pushNewsUser(String userId, String name, String email) {
+        User user = new User(name, email);
+        myRef = FirebaseDatabase.getInstance().getReference();
+        String key = myRef.child("users").push().getKey();
+        Log.d(TAG, "key :" + key);
+        Map<String, Object> childUpdate = new HashMap<>();
+        childUpdate.put("/users/" + key, user.toMap());
+        myRef.updateChildren(childUpdate);
+    }
+
     public void subscribeSimpleData(String ref) {
         // Retrieve an instance of the mDatabase
         mDatabase = FirebaseDatabase.getInstance();
@@ -46,7 +59,7 @@ public class FireBaseBasic {
 
     public void subscribeUserData(String index) {
         // retrieve the instance and get the reference
-        myRef = FirebaseDatabase.getInstance().getReference("users").child(index);
+        myRef = FirebaseDatabase.getInstance().getReference("users");
         myRef.addListenerForSingleValueEvent(postListenerUserObject);
     }
 
@@ -75,8 +88,11 @@ public class FireBaseBasic {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             // Get Post object and use the values to update the UI
-            User user = dataSnapshot.getValue(User.class);
-            Log.d(TAG,"value is: "+user.toString());
+            for (DataSnapshot var : dataSnapshot.getChildren()) {
+                User user = var.getValue(User.class);
+                Log.d(TAG, "value is: " + user.toString());
+            }
+
         }
 
         @Override
