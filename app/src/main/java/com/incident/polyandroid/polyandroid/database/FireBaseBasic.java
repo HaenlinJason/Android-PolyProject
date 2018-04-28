@@ -57,7 +57,7 @@ public class FireBaseBasic {
         myRef.addListenerForSingleValueEvent(postListenerSimpleData);
     }
 
-    public void subscribeUserData(String index) {
+    public void subscribeUserData() {
         // retrieve the instance and get the reference
         myRef = FirebaseDatabase.getInstance().getReference("users");
         myRef.addListenerForSingleValueEvent(postListenerUserObject);
