@@ -7,21 +7,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 @IgnoreExtraProperties
-public class Event {
+public class EventModel {
 
     public String title;
-    public String type;
+    public String section;
     public String locate;
     public String description;
     public String date;
 
-    public Event() {
+    public EventModel() {
 
     }
 
-    public Event(String title, String type, String locate, String description, String date) {
+    public EventModel(String title, String section, String locate, String description, String date) {
         this.title = title;
-        this.type = type;
+        this.section = section;
         this.locate = locate;
         this.description = description;
         this.date = date;
@@ -31,11 +31,16 @@ public class Event {
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("title", title);
-        result.put("type", type);
+        result.put("section", section);
         result.put("locate", locate);
         result.put("description", description);
         result.put("date", date);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "[title," + title + "],[section," + section + "],[locate," + locate + "],[date," + date + "]";
     }
 
 }

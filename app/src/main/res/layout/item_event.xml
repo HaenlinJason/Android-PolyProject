@@ -20,7 +20,7 @@
             app:srcCompat="@mipmap/ic_launcher" />
 
         <TextView
-            android:id="@+id/text_type_event"
+            android:id="@+id/text_section_event"
             android:layout_width="@dimen/card_text_view_width"
             android:layout_height="@dimen/card_text_view_height"
             android:layout_alignParentEnd="true"
@@ -35,7 +35,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/text_type_event"
+            android:layout_below="@+id/text_section_event"
             android:layout_marginBottom="@dimen/card_text_view_margin"
             android:layout_marginEnd="@dimen/card_text_view_margin"
             android:layout_marginStart="@dimen/card_text_view_margin"
@@ -50,7 +50,7 @@
             android:id="@+id/text_locate_event"
             android:layout_width="@dimen/card_text_view_width"
             android:layout_height="@dimen/card_text_view_height"
-            android:layout_alignEnd="@+id/text_type_event"
+            android:layout_alignEnd="@+id/text_section_event"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/card_text_view_margin"
             android:layout_marginStart="@dimen/card_text_view_margin"

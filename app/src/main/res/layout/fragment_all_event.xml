@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:showIn="@layout/content_main">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/messages_list"
+        android:id="@+id/events_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="top"

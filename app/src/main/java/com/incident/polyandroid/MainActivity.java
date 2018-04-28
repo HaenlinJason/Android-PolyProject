@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.incident.polyandroid.R;
 import com.incident.polyandroid.database.FireBaseBasic;
 
 public class MainActivity extends AppCompatActivity

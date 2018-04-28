@@ -7,7 +7,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.incident.polyandroid.polyandroid.models.User;
+import com.incident.polyandroid.models.EventModel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,82 +15,41 @@ import java.util.Map;
 public class FireBaseBasic {
 
     private static final String TAG = "DEBUG_DB";
-    private String dataRead = "";
-    private FirebaseDatabase mDatabase;
-    private DatabaseReference myRef;
+    private DatabaseReference mDatabase;
 
     public FireBaseBasic() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
-    public void writeSimpleData(String ref, String msg) {
-        // Retrieve an instance of the mDatabase
-        mDatabase = FirebaseDatabase.getInstance();
-        // reference the location where I want to write to
-        myRef = mDatabase.getReference(ref);
-        // write the data into the reference
-        myRef.setValue(msg);
-    }
-
-    public void writeNewUser(String userId, String name, String email) {
-
-        User user = new User(name, email);
-        // retrieve the instance and get the reference
-        myRef = FirebaseDatabase.getInstance().getReference();
-        // write the object into the data base with the reference "users" and with the index of the user.
-        myRef.child("users").child(userId).setValue(user);
-    }
-
-    public void pushNewsUser(String userId, String name, String email) {
-        User user = new User(name, email);
-        myRef = FirebaseDatabase.getInstance().getReference();
-        String key = myRef.child("users").push().getKey();
+    public void pushNewsEvent(EventModel newEvent) {
+        EventModel event = newEvent;
+        String key = mDatabase.child("events").push().getKey();
         Log.d(TAG, "key :" + key);
         Map<String, Object> childUpdate = new HashMap<>();
-        childUpdate.put("/users/" + key, user.toMap());
-        myRef.updateChildren(childUpdate);
+        childUpdate.put("/events/" + key, event.toMap());
+        mDatabase.updateChildren(childUpdate);
     }
 
-    public void subscribeSimpleData(String ref) {
-        // Retrieve an instance of the mDatabase
-        mDatabase = FirebaseDatabase.getInstance();
-        myRef = mDatabase.getReference(ref);
-        myRef.addListenerForSingleValueEvent(postListenerSimpleData);
-    }
-
-    public void subscribeUserData() {
+    /**
+     * @param singleListen to True, will continue listening until the listener is stop
+     */
+    public void subscribeEventsData(boolean singleListen) {
         // retrieve the instance and get the reference
-        myRef = FirebaseDatabase.getInstance().getReference("users");
-        myRef.addListenerForSingleValueEvent(postListenerUserObject);
+        mDatabase = FirebaseDatabase.getInstance().getReference("events");
+        if (!singleListen)
+            mDatabase.addListenerForSingleValueEvent(postListenerObject);
+        else
+            mDatabase.addValueEventListener(postListenerObject);
     }
 
 
-    public String getSimpleData() {
-        return this.dataRead;
-    }
-
-    private ValueEventListener postListenerSimpleData = new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            // This method is called once with the initial value and again
-            // whenever data at this location is updated.
-            dataRead = dataSnapshot.getValue(String.class);
-            Log.d(TAG, "Value is: " + dataRead);
-        }
-
-        @Override
-        public void onCancelled(DatabaseError error) {
-            // Failed to read value
-            Log.w(TAG, "Failed to read value.", error.toException());
-        }
-    };
-
-    private ValueEventListener postListenerUserObject = new ValueEventListener() {
+    private ValueEventListener postListenerObject = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             // Get Post object and use the values to update the UI
             for (DataSnapshot var : dataSnapshot.getChildren()) {
-                User user = var.getValue(User.class);
-                Log.d(TAG, "value is: " + user.toString());
+                EventModel event = var.getValue(EventModel.class);
+                Log.d(TAG, "value is: " + event.toString());
             }
 
         }
@@ -101,5 +60,10 @@ public class FireBaseBasic {
             Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
             // ...
         }
+
     };
+
+    public DatabaseReference getReference() {
+        return mDatabase;
+    }
 }
