@@ -1,4 +1,4 @@
-package com.incident.polyandroid.polyandroid.database;
+package com.incident.polyandroid.database;
 
 import android.util.Log;
 

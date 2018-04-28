@@ -1,4 +1,4 @@
-package com.incident.polyandroid.polyandroid;
+package com.incident.polyandroid;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,7 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.incident.polyandroid.polyandroid.database.FireBaseBasic;
+import com.incident.polyandroid.R;
+import com.incident.polyandroid.database.FireBaseBasic;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
