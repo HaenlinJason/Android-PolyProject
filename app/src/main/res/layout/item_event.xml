@@ -21,7 +21,7 @@
 
         <TextView
             android:id="@+id/text_section_event"
-            android:layout_width="@dimen/card_text_view_width"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/card_text_view_height"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
@@ -48,7 +48,7 @@
 
         <TextView
             android:id="@+id/text_locate_event"
-            android:layout_width="@dimen/card_text_view_width"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/card_text_view_height"
             android:layout_alignEnd="@+id/text_section_event"
             android:layout_alignParentBottom="true"
@@ -59,7 +59,7 @@
 
         <TextView
             android:id="@+id/text_date_event"
-            android:layout_width="@dimen/card_text_view_width"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/card_text_view_height"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"

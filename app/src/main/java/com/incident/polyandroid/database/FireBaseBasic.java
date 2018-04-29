@@ -20,12 +20,12 @@ public class FireBaseBasic {
 
     public FireBaseBasic(String post) {
         this.post = post;
-        mDatabase = FirebaseDatabase.getInstance().getReference(post);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     public FireBaseBasic() {
         this.post = "";
-        mDatabase = FirebaseDatabase.getInstance().getReference(post);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     public void pushNewsEvent(EventModel newEvent) {
