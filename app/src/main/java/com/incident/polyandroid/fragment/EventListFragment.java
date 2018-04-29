@@ -71,13 +71,11 @@ public abstract class EventListFragment extends Fragment {
             @Override
             public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
-                Log.d(TAG, "view holder create");
                 return new EventViewHolder(itemView);
             }
 
             @Override
             protected void onBindViewHolder(@NonNull EventViewHolder holder, int position, @NonNull EventModel model) {
-                Log.d(TAG, "view holder bind");
                 holder.bindToEvent(model, mContext);
             }
         };
