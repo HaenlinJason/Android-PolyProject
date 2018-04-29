@@ -16,7 +16,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.incident.polyandroid.R;
-import com.incident.polyandroid.database.FireBaseBasic;
+import com.incident.polyandroid.firebase.MyDatabase;
 import com.incident.polyandroid.models.EventModel;
 import com.incident.polyandroid.viewholder.EventViewHolder;
 
@@ -24,7 +24,7 @@ public abstract class EventListFragment extends Fragment {
 
     private static final String TAG = "DEBUG_DB";
 
-    private FireBaseBasic mDatabase;
+    private MyDatabase mDatabase;
     private FirebaseRecyclerAdapter<EventModel, EventViewHolder> mAdapter;
     private RecyclerView mRecycler;
     private Context mContext;
@@ -40,8 +40,8 @@ public abstract class EventListFragment extends Fragment {
         Log.d(TAG, "my fragment view created");
         View rootView = inflater.inflate(R.layout.fragment_all_event, container, false);
         mContext = this.getContext();
-        //init FireBaseBasic and get the reference to it
-        mDatabase = new FireBaseBasic();
+        //init MyDatabase and get the reference to it
+        mDatabase = new MyDatabase();
         //init the recyclerView with the container et set it to a fixed size
         mRecycler = rootView.findViewById(R.id.events_list);
         mRecycler.setHasFixedSize(true);

@@ -1,4 +1,4 @@
-package com.incident.polyandroid.database;
+package com.incident.polyandroid.firebase;
 
 import android.util.Log;
 
@@ -12,18 +12,18 @@ import com.incident.polyandroid.models.EventModel;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FireBaseBasic {
+public class MyDatabase {
 
     private static final String TAG = "DEBUG_DB";
     private DatabaseReference mDatabase;
     private String post;
 
-    public FireBaseBasic(String post) {
+    public MyDatabase(String post) {
         this.post = post;
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
-    public FireBaseBasic() {
+    public MyDatabase() {
         this.post = "";
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
