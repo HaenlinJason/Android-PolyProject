@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ public abstract class EventListFragment extends Fragment {
     private FirebaseRecyclerAdapter<EventModel, EventViewHolder> mAdapter;
     private RecyclerView mRecycler;
     private Context mContext;
+    private LinearLayoutManager mManager;
 
     public EventListFragment() {
     }
@@ -39,7 +41,7 @@ public abstract class EventListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_all_event, container, false);
         mContext = this.getContext();
         //init FireBaseBasic and get the reference to it
-        mDatabase = new FireBaseBasic("event");
+        mDatabase = new FireBaseBasic();
         //init the recyclerView with the container et set it to a fixed size
         mRecycler = rootView.findViewById(R.id.events_list);
         mRecycler.setHasFixedSize(true);
@@ -50,11 +52,18 @@ public abstract class EventListFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log.d(TAG, "my fragment activity created");
+
+        //set the layout manager
+        mManager = new LinearLayoutManager(getActivity());
+        mRecycler.setLayoutManager(mManager);
+
         // Set up FireBaseRecyclerAdapter with the Query
-        Query postsQuery = getQuery(mDatabase.getReference());
+        Query eventsQuery = getQuery(mDatabase.getReference());
+        Log.d(TAG, "query : " + eventsQuery.toString());
 
         FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<EventModel>()
-                .setQuery(postsQuery, EventModel.class)
+                .setQuery(eventsQuery, EventModel.class)
                 .build();
 
         mAdapter = new FirebaseRecyclerAdapter<EventModel, EventViewHolder>(options) {
@@ -72,6 +81,8 @@ public abstract class EventListFragment extends Fragment {
                 holder.bindToEvent(model, mContext);
             }
         };
+
+        mRecycler.setAdapter(mAdapter);
 
     }
 

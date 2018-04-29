@@ -40,6 +40,7 @@ public class EventModel {
         return result;
     }
 
+    @Exclude
     @Override
     public String toString() {
         return getClass().getSimpleName() + "=[TITLE:" + title + "],[SECTION:" + section + "],[LOCATE:" + locate + "],[DATE:" + date + "]";

@@ -23,6 +23,11 @@ public class FireBaseBasic {
         mDatabase = FirebaseDatabase.getInstance().getReference(post);
     }
 
+    public FireBaseBasic() {
+        this.post = "";
+        mDatabase = FirebaseDatabase.getInstance().getReference(post);
+    }
+
     public void pushNewsEvent(EventModel newEvent) {
         EventModel event = newEvent;
         String key = mDatabase.child(post).push().getKey();
@@ -33,12 +38,12 @@ public class FireBaseBasic {
     }
 
     /**
-     * @param singleListen to True, will continue listening until the listener is stop
+     * @param persistent to True, will continue listening until the listener is stop
      */
-    public void subscribeEventsData(boolean singleListen) {
+    public void subscribeEventsData(boolean persistent) {
         // retrieve the instance and get the reference
         mDatabase = FirebaseDatabase.getInstance().getReference(post);
-        if (!singleListen)
+        if (!persistent)
             mDatabase.addListenerForSingleValueEvent(postListenerObject);
         else
             mDatabase.addValueEventListener(postListenerObject);
