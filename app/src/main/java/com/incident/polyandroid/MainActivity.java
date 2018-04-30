@@ -1,5 +1,6 @@
 package com.incident.polyandroid;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -14,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 import com.incident.polyandroid.firebase.MyStorage;
 import com.incident.polyandroid.fragment.MyEventFragment;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "DEBUG_DB";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +37,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                createDeclarationActivity(view);
             }
         });
 
@@ -122,5 +123,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void setContentView(View view) {
         super.setContentView(view);
+    }
+
+    public void createDeclarationActivity(View view) {
+        Intent intent = new Intent(this, DeclarationActivity.class);
+        startActivity(intent);
     }
 }
