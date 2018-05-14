@@ -59,10 +59,6 @@ public class MainActivity extends AppCompatActivity
         //fragmentTransaction.add(R.id.main_content_fragment, fragment);
         fragmentTransaction.add(R.id.main_content_fragment,fragment);
         fragmentTransaction.commit();
-
-        //MyStorage st = new MyStorage();
-        //st.uploadFile("/storage/emulated/0/DCIM/Camera/IMG_20180429_090121.jpg");
-
     }
 
     @Override

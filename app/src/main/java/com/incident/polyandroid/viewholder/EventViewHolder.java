@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.incident.polyandroid.R;
+import com.incident.polyandroid.firebase.MyStorage;
 import com.incident.polyandroid.models.EventModel;
 
 public class EventViewHolder extends RecyclerView.ViewHolder {
@@ -18,6 +18,8 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
     private TextView locateView;
     private TextView dateView;
 
+    private MyStorage storage;
+
     public EventViewHolder(View itemView) {
         super(itemView);
         imageView = itemView.findViewById(R.id.card_image_event);
@@ -26,6 +28,8 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
         locateView = itemView.findViewById(R.id.text_locate_event);
         dateView = itemView.findViewById(R.id.text_date_event);
 
+        storage = new MyStorage();
+
     }
 
     public void bindToEvent(EventModel event, Context context) {
@@ -33,10 +37,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
         titleView.setText(event.title);
         locateView.setText(event.locate);
         dateView.setText(event.date);
-        if (event.image != null)
-            Glide.with(context)
-                    .load(event.image)
-                    .fitCenter()
-                    .into(imageView);
+        //if (event.image != null)
+        storage.loadImage(context, imageView, "image/panda-kawaii-chibi.jpg");
     }
 }
