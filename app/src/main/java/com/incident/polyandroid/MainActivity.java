@@ -19,6 +19,7 @@ import android.widget.EditText;
 
 import com.incident.polyandroid.firebase.MyStorage;
 import com.incident.polyandroid.fragment.MyEventFragment;
+import com.incident.polyandroid.fragment.SortByListFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -53,11 +54,11 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        MyEventFragment fragment = new MyEventFragment();
-
-        fragmentTransaction.add(R.id.main_content_fragment, fragment);
+        //MyEventFragment fragment = new MyEventFragment();
+        SortByListFragment fragment = new SortByListFragment();
+        //fragmentTransaction.add(R.id.main_content_fragment, fragment);
+        fragmentTransaction.add(R.id.main_content_fragment,fragment);
         fragmentTransaction.commit();
-
     }
 
     @Override
