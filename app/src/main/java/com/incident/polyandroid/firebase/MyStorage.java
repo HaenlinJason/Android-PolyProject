@@ -65,12 +65,4 @@ public class MyStorage {
         });
 
     }
-
-    public void test(){
-        StorageReference ref = mStorageRef.child("image/panda-kawaii-chibi.jpg");
-        Log.d(TAG,"CHILD : "+ref.toString());
-        Log.d(TAG,"CHILD : "+ref.getDownloadUrl().toString());
-        Log.d(TAG,"CHILD : "+ref.getPath());
-        Log.d(TAG,"CHILD : "+ref.getBucket());
-    }
 }

@@ -11,10 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="false"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="false"
-        android:clickable="false"
+        android:clickable="true"
         android:text="@string/buttonValider"
         android:textSize="36sp"
         tools:layout_editor_absoluteX="256dp"
@@ -144,17 +142,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="15dp"
+        android:layout_below="@+id/LabelImage"
+        android:layout_centerVertical="false"
+        android:layout_marginStart="18dp"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <ImageView
-        android:id="@+id/image2"
+        android:id="@+id/Image2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/Image1"
+        android:layout_below="@+id/LabelImage"
         android:layout_marginBottom="10dp"
         android:layout_toEndOf="@+id/LabelImage"
         android:layout_toRightOf="@+id/Image1"
         app:srcCompat="@mipmap/ic_launcher" />
+
+    <Button
+        android:id="@+id/buttonTakePhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/LabelImage"
+        android:layout_marginTop="11dp"
+        android:layout_toRightOf="@+id/Image2"
+        android:text="Prendre une photo"
+        android:textSize="14sp" />
 </RelativeLayout>
