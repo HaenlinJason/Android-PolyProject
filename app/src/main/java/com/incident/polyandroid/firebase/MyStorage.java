@@ -1,9 +1,12 @@
 package com.incident.polyandroid.firebase;
 
+import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -24,7 +27,7 @@ public class MyStorage {
 
     public void uploadFile(String path) {
         Uri file = Uri.fromFile(new File(path));
-        StorageReference riversRef = mStorageRef.child("images/" + file.getLastPathSegment());
+        StorageReference riversRef = mStorageRef.child("image/" + file.getLastPathSegment());
 
         riversRef.putFile(file)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -41,5 +44,33 @@ public class MyStorage {
                         Log.d(TAG, "error while uploading the file", exception);
                     }
                 });
+    }
+
+    public void loadImage(Context context, ImageView imageView, String reference) {
+        final Context mC = context;
+        final ImageView iv = imageView;
+        mStorageRef.child(reference).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(mC)
+                        .load(uri.toString())
+                        .into(iv);
+                Log.d(TAG, "image load from " + uri.toString());
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "image fail to load", e);
+            }
+        });
+
+    }
+
+    public void test(){
+        StorageReference ref = mStorageRef.child("image/panda-kawaii-chibi.jpg");
+        Log.d(TAG,"CHILD : "+ref.toString());
+        Log.d(TAG,"CHILD : "+ref.getDownloadUrl().toString());
+        Log.d(TAG,"CHILD : "+ref.getPath());
+        Log.d(TAG,"CHILD : "+ref.getBucket());
     }
 }
