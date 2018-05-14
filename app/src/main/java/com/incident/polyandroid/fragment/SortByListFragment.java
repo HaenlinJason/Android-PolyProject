@@ -26,7 +26,7 @@ public class SortByListFragment extends Fragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.sort_by_list, container, false);
 
@@ -34,12 +34,16 @@ public class SortByListFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                MyEventFragmentSortByImportance fragment = new MyEventFragmentSortByImportance();
-                fragmentTransaction.replace(R.id.main_content_fragment, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    MyEventFragmentSortByImportance fragment = new MyEventFragmentSortByImportance();
+
+                    fragmentTransaction.replace(R.id.main_content_fragment, fragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+
             }
         });
 
@@ -48,6 +52,7 @@ public class SortByListFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+
                 ((ViewGroup)v.getParent()).removeView(v);
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -56,6 +61,7 @@ public class SortByListFragment extends Fragment {
                 fragmentTransaction.replace(R.id.main_content_fragment, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+
             }
         });
 
@@ -64,14 +70,15 @@ public class SortByListFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                ((ViewGroup)v.getParent()).removeView(v);
+                    ((ViewGroup) v.getParent()).removeView(v);
 
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                MyEventFragment fragment = new MyEventFragment();
-                fragmentTransaction.replace(R.id.main_content_fragment, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    MyEventFragment fragment = new MyEventFragment();
+                    fragmentTransaction.replace(R.id.main_content_fragment, fragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+
             }
         });
 
@@ -80,14 +87,14 @@ public class SortByListFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                ((ViewGroup)v.getParent()).removeView(v);
+                    ((ViewGroup) v.getParent()).removeView(v);
 
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                MyEventFragment fragment = new MyEventFragment();
-                fragmentTransaction.replace(R.id.main_content_fragment, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    MyEventFragment fragment = new MyEventFragment();
+                    fragmentTransaction.replace(R.id.main_content_fragment, fragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
             }
         });
 

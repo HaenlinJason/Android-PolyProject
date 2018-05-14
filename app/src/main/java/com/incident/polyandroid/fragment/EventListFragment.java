@@ -1,11 +1,13 @@
 package com.incident.polyandroid.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,6 +21,8 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
+import com.incident.polyandroid.DeclarationActivity;
+import com.incident.polyandroid.DetailledEventActivity;
 import com.incident.polyandroid.R;
 import com.incident.polyandroid.firebase.MyDatabase;
 import com.incident.polyandroid.models.EventModel;
@@ -105,6 +109,19 @@ public abstract class EventListFragment extends Fragment {
                     public void onClick(View v) {
                         Toast toast = Toast.makeText(mContext, "event : " + position, Toast.LENGTH_SHORT);
                         toast.show();
+
+
+                        /*FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        ImageAdapter fragment = new ImageAdapter(getContext());
+                        fragmentTransaction.replace(R.id.main_content_fragment, fragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();*/
+                        /*ViewPager viewPager = (ViewPager) getActivity().findViewById(R.id.);
+                        ImageAdapter adapter = new ImageAdapter(getContext());
+                        viewPager.setAdapter(adapter);*/
+                        Intent intent = new Intent(mContext, DetailledEventActivity.class);
+                        startActivity(intent);
                     }
                 });
             }

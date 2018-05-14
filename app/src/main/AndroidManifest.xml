@@ -33,6 +33,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.incident.polyandroid.MainActivity" />
         </activity>
+        <activity
+            android:name=".DetailledEventActivity"
+            android:label="detailledActivity"
+            android:parentActivityName=".MainActivity">
+        </activity>
     </application>
 
 </manifest>

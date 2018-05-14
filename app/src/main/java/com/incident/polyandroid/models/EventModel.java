@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @IgnoreExtraProperties
-public class EventModel {
+public class EventModel  {
 
     public String image;
     public String title;

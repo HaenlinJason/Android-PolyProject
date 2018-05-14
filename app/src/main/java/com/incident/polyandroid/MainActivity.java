@@ -17,9 +17,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.incident.polyandroid.firebase.MyDatabase;
 import com.incident.polyandroid.firebase.MyStorage;
 import com.incident.polyandroid.fragment.MyEventFragment;
 import com.incident.polyandroid.fragment.SortByListFragment;
+import com.incident.polyandroid.models.EventModel;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -51,14 +53,21 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        /*MyDatabase myDatabase = new MyDatabase("events");
+        myDatabase.pushNewsEvent(new EventModel("aesfhucdshiu","b","c","d","e"));*/
 
-        //MyEventFragment fragment = new MyEventFragment();
-        SortByListFragment fragment = new SortByListFragment();
-        //fragmentTransaction.add(R.id.main_content_fragment, fragment);
-        fragmentTransaction.add(R.id.main_content_fragment,fragment);
-        fragmentTransaction.commit();
+        if (savedInstanceState == null) {
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            //MyEventFragment fragment = new MyEventFragment();
+            SortByListFragment fragment = new SortByListFragment();
+            //fragmentTransaction.add(R.id.main_content_fragment, fragment);
+            fragmentTransaction.add(R.id.main_content_fragment, fragment);
+            fragmentTransaction.commit();
+        }
+        else {}
     }
 
     @Override
