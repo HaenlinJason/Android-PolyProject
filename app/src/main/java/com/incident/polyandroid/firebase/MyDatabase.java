@@ -1,7 +1,9 @@
 package com.incident.polyandroid.firebase;
 
 import android.util.Log;
+import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +38,41 @@ public class MyDatabase {
         childUpdate.put("/" + post + "/" + key, event.toMap());
         mDatabase.updateChildren(childUpdate);
     }
+
+    public void subscribeToChildEvent() {
+        mDatabase.addChildEventListener(childEventListener);
+    }
+
+    private ChildEventListener childEventListener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
+        }
+
+        @Override
+        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            Log.d(TAG, "onChildChanged:" + dataSnapshot.getKey());
+
+        }
+
+        @Override
+        public void onChildRemoved(DataSnapshot dataSnapshot) {
+            Log.d(TAG, "onChildRemoved:" + dataSnapshot.getKey());
+
+        }
+
+        @Override
+        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            Log.d(TAG, "onChildMoved:" + dataSnapshot.getKey());
+
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            Log.w(TAG, "postComments:onCancelled", databaseError.toException());
+
+        }
+    };
 
     /**
      * @param persistent to True, will continue listening until the listener is stop
@@ -75,8 +112,10 @@ public class MyDatabase {
     }
 
     public void cleanupListener() {
-        if (postListenerObject != null) {
+        if (postListenerObject != null)
             mDatabase.removeEventListener(postListenerObject);
-        }
+
+        if (childEventListener != null)
+            mDatabase.removeEventListener(childEventListener);
     }
 }

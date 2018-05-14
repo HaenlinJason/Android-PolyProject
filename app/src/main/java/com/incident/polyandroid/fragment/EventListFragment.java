@@ -15,8 +15,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.firebase.ui.common.ChangeEventType;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.incident.polyandroid.R;
@@ -26,111 +28,110 @@ import com.incident.polyandroid.viewholder.EventViewHolder;
 
 public abstract class EventListFragment extends Fragment {
 
-    private static final String TAG = "DEBUG_DB";
+	private static final String TAG = "DEBUG_DB";
 
-    private MyDatabase mDatabase;
-    private FirebaseRecyclerAdapter<EventModel, EventViewHolder> mAdapter;
-    private RecyclerView mRecycler;
-    private Context mContext;
-    private LinearLayoutManager mManager;
+	private MyDatabase mDatabase;
+	private FirebaseRecyclerAdapter<EventModel, EventViewHolder> mAdapter;
+	private RecyclerView mRecycler;
+	private Context mContext;
+	private LinearLayoutManager mManager;
 
-    public EventListFragment() {
-    }
+	public EventListFragment() {
+	}
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        Log.d(TAG, "my fragment view created");
-        View rootView = inflater.inflate(R.layout.fragment_all_event, container, false);
-        mContext = this.getContext();
-        //init MyDatabase and get the reference to it
-        mDatabase = new MyDatabase();
-        //init the recyclerView with the container et set it to a fixed size
-        mRecycler = rootView.findViewById(R.id.events_list);
-        mRecycler.setHasFixedSize(true);
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		super.onCreateView(inflater, container, savedInstanceState);
+		Log.d(TAG, "my fragment view created");
+		View rootView = inflater.inflate(R.layout.fragment_all_event, container, false);
+		mContext = this.getContext();
+		// init MyDatabase and get the reference to it
+		mDatabase = new MyDatabase();
+		// init the recyclerView with the container et set it to a fixed size
+		mRecycler = rootView.findViewById(R.id.events_list);
+		mRecycler.setHasFixedSize(true);
 
-        return rootView;
-    }
+		return rootView;
+	}
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Log.d(TAG, "my fragment activity created");
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		Log.d(TAG, "my fragment activity created");
 
-        //set the layout manager
-        mManager = new LinearLayoutManager(getActivity());
-        mRecycler.setLayoutManager(mManager);
+		// set the layout manager
+		mManager = new LinearLayoutManager(getActivity());
+		mRecycler.setLayoutManager(mManager);
 
-        // Set up FireBaseRecyclerAdapter with the Query
-        Query eventsQuery = getQuery(mDatabase.getReference());
-        Log.d(TAG, "query : " + eventsQuery.toString());
+		// Set up FireBaseRecyclerAdapter with the Query
+		Query eventsQuery = getQuery(mDatabase.getReference());
+		Log.d(TAG, "query : " + eventsQuery.toString());
 
-        FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<EventModel>()
-                .setQuery(eventsQuery, EventModel.class)
-                .build();
+		FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<EventModel>()
+				.setQuery(eventsQuery, EventModel.class).build();
 
-        mAdapter = new FirebaseRecyclerAdapter<EventModel, EventViewHolder>(options) {
+		mDatabase.subscribeToChildEvent();
 
-            @Override
-            public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                final View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
+		mAdapter = new FirebaseRecyclerAdapter<EventModel, EventViewHolder>(options) {
 
+			@Override
+			public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+				final View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent,
+						false);
 
-            //itemView.setOn
+				// itemView.setOn
 
-                /*itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onItemClick(View v) {
-                        final int position = holder.getAdapterPosition();
+				/*
+				 * itemView.setOnClickListener(new View.OnClickListener() {
+				 * 
+				 * @Override public void onItemClick(View v) { final int position =
+				 * holder.getAdapterPosition();
+				 * 
+				 * Context context = getActivity().getApplicationContext(); //TODO gerer click
+				 * detail CharSequence text = "A IMPLEMENTER" + position; int duration =
+				 * Toast.LENGTH_SHORT;
+				 * 
+				 * Toast toast = Toast.makeText(context, text, duration); toast.show(); } });
+				 */
 
-                        Context context = getActivity().getApplicationContext(); //TODO gerer click detail
-                        CharSequence text = "A IMPLEMENTER" + position;
-                        int duration = Toast.LENGTH_SHORT;
+				return new EventViewHolder(itemView);
+			}
 
-                        Toast toast = Toast.makeText(context, text, duration);
-                        toast.show();
-                    }
-                });*/
+			@Override
+			protected void onBindViewHolder(@NonNull EventViewHolder holder, final int position,
+					@NonNull EventModel model) {
+				holder.bindToEvent(model, mContext);
+				Toast toast = Toast.makeText(mContext, "event : " + position, Toast.LENGTH_SHORT);
 
-                return new EventViewHolder(itemView);
-            }
+				holder.itemView.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Toast toast = Toast.makeText(mContext, "event : " + position, Toast.LENGTH_SHORT);
+						toast.show();
+					}
+				});
+			}
+		};
+		mRecycler.setAdapter(mAdapter);
+	}
 
-            @Override
-            protected void onBindViewHolder(@NonNull EventViewHolder holder, final int position, @NonNull EventModel model) {
-                holder.bindToEvent(model, mContext);
+	@Override
+	public void onStart() {
+		super.onStart();
+		Log.d(TAG, "start");
+		if (mAdapter != null) {
+			mAdapter.startListening();
+		}
+	}
 
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast toast = Toast.makeText(mContext, "event : " + position, Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-                });
-            }
-        };
-        mRecycler.setAdapter(mAdapter);
-    }
+	@Override
+	public void onStop() {
+		super.onStop();
+		Log.d(TAG, "stop");
+		if (mAdapter != null) {
+			mAdapter.stopListening();
+		}
+	}
 
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d(TAG, "start");
-        if (mAdapter != null) {
-            mAdapter.startListening();
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d(TAG, "stop");
-        if (mAdapter != null) {
-            mAdapter.stopListening();
-        }
-    }
-
-
-    public abstract Query getQuery(DatabaseReference databaseReference);
+	public abstract Query getQuery(DatabaseReference databaseReference);
 }
