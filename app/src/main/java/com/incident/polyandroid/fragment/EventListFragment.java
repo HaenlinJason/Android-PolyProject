@@ -10,9 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.firebase.ui.common.ChangeEventType;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.incident.polyandroid.R;
@@ -66,6 +69,8 @@ public abstract class EventListFragment extends Fragment {
                 .setQuery(eventsQuery, EventModel.class)
                 .build();
 
+        mDatabase.subscribeToChildEvent();
+
         mAdapter = new FirebaseRecyclerAdapter<EventModel, EventViewHolder>(options) {
 
             @Override
@@ -74,9 +79,17 @@ public abstract class EventListFragment extends Fragment {
                 return new EventViewHolder(itemView);
             }
 
+
             @Override
-            protected void onBindViewHolder(@NonNull EventViewHolder holder, int position, @NonNull EventModel model) {
+            protected void onBindViewHolder(@NonNull EventViewHolder holder, final int position, @NonNull EventModel model) {
                 holder.bindToEvent(model, mContext);
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast toast = Toast.makeText(mContext, "event : "+position,Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                });
             }
         };
 
