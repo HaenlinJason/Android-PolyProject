@@ -4,12 +4,16 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -70,18 +74,42 @@ public abstract class EventListFragment extends Fragment {
 
             @Override
             public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
+                final View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
+
+
+            //itemView.setOn
+
+                /*itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onItemClick(View v) {
+                        final int position = holder.getAdapterPosition();
+
+                        Context context = getActivity().getApplicationContext(); //TODO gerer click detail
+                        CharSequence text = "A IMPLEMENTER" + position;
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
+                });*/
+
                 return new EventViewHolder(itemView);
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull EventViewHolder holder, int position, @NonNull EventModel model) {
+            protected void onBindViewHolder(@NonNull EventViewHolder holder, final int position, @NonNull EventModel model) {
                 holder.bindToEvent(model, mContext);
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast toast = Toast.makeText(mContext, "event : " + position, Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                });
             }
         };
-
         mRecycler.setAdapter(mAdapter);
-
     }
 
 
@@ -102,6 +130,7 @@ public abstract class EventListFragment extends Fragment {
             mAdapter.stopListening();
         }
     }
+
 
     public abstract Query getQuery(DatabaseReference databaseReference);
 }

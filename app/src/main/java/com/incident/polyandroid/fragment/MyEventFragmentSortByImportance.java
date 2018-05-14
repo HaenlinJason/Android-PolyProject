@@ -1,13 +1,11 @@
 package com.incident.polyandroid.fragment;
 
-import android.os.Bundle;
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 
-public class MyEventFragment extends EventListFragment {
+public class MyEventFragmentSortByImportance extends EventListFragment {
 
-    public MyEventFragment() {
+    public MyEventFragmentSortByImportance() {
     }
 
     @Override
