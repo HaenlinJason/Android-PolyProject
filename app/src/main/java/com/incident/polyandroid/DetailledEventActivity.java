@@ -18,7 +18,7 @@ import com.incident.polyandroid.viewholder.EventViewHolder;
  * Created by Polytech on 14/05/2018.
  */
 
-public class DetailledEventActivity extends AppCompatActivity {
+public class DetailledEventActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

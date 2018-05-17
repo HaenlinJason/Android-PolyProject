@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.incident.polyandroid.models.EventModel;
 
-public class DeclarationActivity extends AppCompatActivity {
+public class DeclarationActivity extends BaseActivity {
     Integer compteur = 0;
 
     @Override

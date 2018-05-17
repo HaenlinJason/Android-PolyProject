@@ -23,7 +23,7 @@ import com.incident.polyandroid.fragment.MyEventFragment;
 import com.incident.polyandroid.fragment.SortByListFragment;
 import com.incident.polyandroid.models.EventModel;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "DEBUG_DB";
@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.add(R.id.main_content_fragment, fragment);
             fragmentTransaction.commit();
         }
-        else {}
     }
 
     @Override

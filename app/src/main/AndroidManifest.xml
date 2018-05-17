@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.incident.polyandroid">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature
@@ -26,7 +25,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DeclarationActivity"
+        <activity
+            android:name=".DeclarationActivity"
             android:label="@string/declaration_activity_name"
             android:parentActivityName=".MainActivity">
             <meta-data

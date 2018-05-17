@@ -19,4 +19,6 @@
     <string name="urgence">Urgence :</string>
     <string name="images">Images :</string>
     <string name="commentaires">Commentaire :</string>
+    <string name="sort_incident_importance">Incident à urgence élevé</string>
+    <string name="sort_all_incident">Tous les incidents</string>
 </resources>
