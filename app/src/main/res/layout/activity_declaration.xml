@@ -1,141 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.incident.polyandroid.DeclarationActivity">
 
-    <Button
-        android:id="@+id/buttonValider"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:clickable="true"
-        android:text="@string/buttonValider"
-        android:textSize="36sp"
-        tools:layout_editor_absoluteX="256dp"
-        tools:layout_editor_absoluteY="447dp" />
-
-    <TextView
-        android:id="@+id/LabelTitre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentTop="true"
-        android:text="@string/titre"
-        android:textSize="30sp"
-        tools:layout_editor_absoluteX="31dp"
-        tools:layout_editor_absoluteY="16dp" />
-
     <EditText
         android:id="@+id/EditTextTitre"
-        android:layout_width="209dp"
-        android:layout_height="42dp"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentRight="true"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="107dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/margin"
+        android:hint="@string/titre"
+        android:maxLines="1"
+        android:textSize="@dimen/declaration_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/LabelLieu"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/label_spinner"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/LabelTitre"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/EditTextTitre"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
         android:text="@string/lieu"
-        android:textSize="30sp"
-        tools:layout_editor_absoluteX="31dp"
-        tools:layout_editor_absoluteY="79dp" />
+        android:textSize="@dimen/declaration_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditTextTitre" />
 
     <TextView
         android:id="@+id/LabelType"
-        android:layout_width="240dp"
-        android:layout_height="43dp"
-        android:layout_alignParentLeft="true"
+        android:layout_width="@dimen/label_spinner"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/LabelLieu"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
         android:text="@string/type_d_incident"
-        android:textSize="30sp"
-        tools:layout_editor_absoluteX="38dp"
-        tools:layout_editor_absoluteY="138dp" />
+        android:textSize="@dimen/declaration_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LabelLieu" />
 
     <TextView
         android:id="@+id/LabelUrgence"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/label_spinner"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="false"
         android:layout_below="@+id/LabelType"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
         android:text="@string/urgence"
-        android:textSize="30sp"
-        tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="195dp" />
+        android:textSize="@dimen/declaration_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LabelType" />
 
     <Spinner
         android:id="@+id/spinnerLieu"
-        android:layout_width="224dp"
-        android:layout_height="41dp"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentRight="true"
+        android:layout_width="@dimen/spinner_width"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/spinnerUrgence"
         android:layout_below="@+id/EditTextTitre"
-        tools:layout_editor_absoluteX="102dp"
-        tools:layout_editor_absoluteY="79dp" />
+        android:layout_marginEnd="@dimen/margin"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/LabelLieu"
+        app:layout_constraintTop_toBottomOf="@+id/EditTextTitre" />
 
     <Spinner
         android:id="@+id/spinnerUrgence"
-        android:layout_width="207dp"
-        android:layout_height="42dp"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/spinnerType"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="195dp" />
+        android:layout_width="@dimen/spinner_width"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/buttonValider"
+        android:layout_below="@+id/LabelType"
+        android:layout_marginEnd="@dimen/margin"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/LabelUrgence"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerType" />
 
     <Spinner
         android:id="@+id/spinnerType"
-        android:layout_width="126dp"
-        android:layout_height="43dp"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/spinnerLieu"
-        tools:layout_editor_absoluteX="252dp"
-        tools:layout_editor_absoluteY="137dp" />
+        android:layout_width="@dimen/spinner_width"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/LabelType"
+        android:layout_marginEnd="@dimen/margin"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_toEndOf="@+id/LabelLieu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/LabelType"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerLieu" />
 
     <TextView
         android:id="@+id/LabelImage"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/width_label_image_text"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_below="@+id/LabelUrgence"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
         android:text="@string/images"
         android:textSize="30sp"
-        tools:layout_editor_absoluteX="31dp"
-        tools:layout_editor_absoluteY="257dp" />
-
-    <TextView
-        android:id="@+id/LabelCommentaires"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="false"
-        android:layout_below="@+id/Image1"
-        android:layout_marginTop="24dp"
-        android:text="@string/commentaires"
-        android:textSize="30sp"
-        tools:layout_editor_absoluteX="31dp"
-        tools:layout_editor_absoluteY="406dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LabelUrgence" />
 
     <EditText
         android:id="@+id/EditTextCommentaire"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/LabelCommentaires"
+        android:layout_marginBottom="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
         android:ems="17"
-        android:inputType="textPersonName" />
+        android:hint="@string/commentaires"
+        android:inputType="textPersonName"
+        android:maxLines="4"
+        android:selectAllOnFocus="true"
+        android:singleLine="false"
+        android:textSize="@dimen/declaration_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Image1"
+        app:layout_constraintVertical_bias="0.49" />
 
     <ImageView
         android:id="@+id/Image1"
@@ -144,7 +138,10 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/LabelImage"
         android:layout_centerVertical="false"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
+        app:layout_constraintStart_toEndOf="@+id/Image2"
+        app:layout_constraintTop_toBottomOf="@+id/LabelImage"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <ImageView
@@ -153,9 +150,11 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/Image1"
         android:layout_below="@+id/LabelImage"
-        android:layout_marginBottom="10dp"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
         android:layout_toEndOf="@+id/LabelImage"
-        android:layout_toRightOf="@+id/Image1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LabelImage"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <Button
@@ -163,8 +162,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/LabelImage"
-        android:layout_marginTop="11dp"
-        android:layout_toRightOf="@+id/Image2"
-        android:text="Prendre une photo"
-        android:textSize="14sp" />
-</RelativeLayout>
+        android:layout_marginEnd="@dimen/margin"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
+        android:elevation="0dp"
+        android:text="@string/button_text_take_picture"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Image1"
+        app:layout_constraintTop_toTopOf="@+id/Image1" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/buttonValider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="@dimen/margin"
+        android:layout_marginEnd="@dimen/margin"
+        android:src="@drawable/ic_navigation_check_24"
+        app:layout_constraintBottom_toBottomOf="@+id/EditTextCommentaire"
+        app:layout_constraintEnd_toEndOf="@+id/EditTextCommentaire" />
+
+</android.support.constraint.ConstraintLayout>

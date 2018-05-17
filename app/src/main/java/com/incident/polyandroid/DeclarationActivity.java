@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,11 +24,11 @@ public class DeclarationActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_declaration);
 
-        Button valid = findViewById(R.id.buttonValider);
-        valid.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = findViewById(R.id.buttonValider);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                onClickValider(v);
+            public void onClick(View view) {
+                //TODO
             }
         });
 
