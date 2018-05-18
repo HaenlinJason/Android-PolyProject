@@ -103,7 +103,7 @@ public abstract class EventListFragment extends Fragment {
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull EventViewHolder holder, final int position, @NonNull EventModel model) {
+            protected void onBindViewHolder(@NonNull EventViewHolder holder, final int position, @NonNull final EventModel model) {
                 holder.bindToEvent(model, mContext);
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -123,6 +123,7 @@ public abstract class EventListFragment extends Fragment {
                         ImageAdapter adapter = new ImageAdapter(getContext());
                         viewPager.setAdapter(adapter);*/
                         Intent intent = new Intent(mContext, DetailledEventActivity.class);
+                        intent.putExtra("event", model);
                         startActivity(intent);
                     }
                 });
