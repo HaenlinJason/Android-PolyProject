@@ -13,10 +13,14 @@
     <string name="content_main_text">Hello World!</string>
     <string name="declaration_activity_name">Nouvel incident</string>
     <string name="buttonValider">Valider</string>
-    <string name="titre">Titre :</string>
+    <string name="titre">Titre...</string>
     <string name="type_d_incident">Type d\'incident :</string>
     <string name="lieu">Lieu :</string>
     <string name="urgence">Urgence :</string>
     <string name="images">Images :</string>
-    <string name="commentaires">Commentaire :</string>
+    <string name="commentaires">Commentaires...</string>
+    <string name="sort_incident_importance">Incident à urgence élevé</string>
+    <string name="sort_all_incident">Tous les incidents</string>
+    <string name="button_text_take_picture">Prendre une photo</string>
+
 </resources>

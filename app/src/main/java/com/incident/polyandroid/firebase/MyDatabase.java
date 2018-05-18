@@ -9,9 +9,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.incident.polyandroid.models.DataModel;
 import com.incident.polyandroid.models.EventModel;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MyDatabase {
@@ -19,6 +21,7 @@ public class MyDatabase {
     private static final String TAG = "DEBUG_DB";
     private DatabaseReference mDatabase;
     private String post;
+    private DataModel mdata;
 
     public MyDatabase(String post) {
         this.post = post;
@@ -74,6 +77,12 @@ public class MyDatabase {
         }
     };
 
+    public void subscribeEnumData(DataModel data){
+        mdata = data;
+        mDatabase = FirebaseDatabase.getInstance().getReference(post);
+        mDatabase.addListenerForSingleValueEvent(dataListenerObject);
+    }
+
     /**
      * @param persistent to True, will continue listening until the listener is stop
      */
@@ -86,6 +95,23 @@ public class MyDatabase {
             mDatabase.addValueEventListener(postListenerObject);
     }
 
+    private ValueEventListener dataListenerObject = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            // Get Post object and use the values to update the UI
+            for (DataSnapshot var : dataSnapshot.getChildren()) {
+                mdata.importance = var.child("importance").getValue(List.class);
+                mdata.lieu = var.child("lieu").getValue(List.class);
+                mdata.type = var.child("type").getValue(List.class);
+                Log.d(TAG, "value is: " + var.toString());
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    };
 
     private ValueEventListener postListenerObject = new ValueEventListener() {
         @Override

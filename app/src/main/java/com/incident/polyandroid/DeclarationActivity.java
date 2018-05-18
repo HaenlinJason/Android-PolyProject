@@ -3,9 +3,10 @@ package com.incident.polyandroid;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,21 +14,30 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.incident.polyandroid.firebase.MyDatabase;
+import com.incident.polyandroid.models.DataModel;
 import com.incident.polyandroid.models.EventModel;
 
-public class DeclarationActivity extends AppCompatActivity {
-    Integer compteur = 0;
+public class DeclarationActivity extends BaseActivity {
+    private static final String TAG = "DEBUG_DB";
+
+    private Integer compteur = 0;
+    private MyDatabase mdatabase;
+    private DataModel mdata;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_declaration);
+        mdata = new DataModel();
+        mdatabase = new MyDatabase("enum");
+        mdatabase.subscribeEnumData(mdata);
 
-        Button valid = findViewById(R.id.buttonValider);
-        valid.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = findViewById(R.id.buttonValider);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                onClickValider(v);
+            public void onClick(View view) {
+                //TODO
             }
         });
 
@@ -53,25 +63,26 @@ public class DeclarationActivity extends AppCompatActivity {
 
         EditText commentaire = findViewById(R.id.EditTextCommentaire);
 
+
     }
 
-    public void onClickValider(View v){
+    public void onClickValider(View v) {
         new EventModel();
     }
-    public  void onClickTakePhoto(View v){
+
+    public void onClickTakePhoto(View v) {
         dispatchTakePictureIntent();
     }
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     private void dispatchTakePictureIntent() {
-        if(compteur<2) {
+        if (compteur < 2) {
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
-        }
-        else {
+        } else {
             Context context = getApplicationContext();
             CharSequence text = "Vous avez deja pris 2 photos";
             int duration = Toast.LENGTH_SHORT;
@@ -79,9 +90,10 @@ public class DeclarationActivity extends AppCompatActivity {
             toast.show();
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (compteur==0){
+        if (compteur == 0) {
             compteur = 1;
             ImageView image1 = findViewById(R.id.Image1);
             if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
@@ -89,8 +101,7 @@ public class DeclarationActivity extends AppCompatActivity {
                 Bitmap imageBitmap = (Bitmap) extras.get("data");
                 image1.setImageBitmap(imageBitmap);
             }
-        }
-        else if(compteur==1) {
+        } else if (compteur == 1) {
             compteur = 2;
             ImageView image2 = findViewById(R.id.Image2);
             if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
