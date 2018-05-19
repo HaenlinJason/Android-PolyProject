@@ -3,14 +3,11 @@ package com.incident.polyandroid;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.incident.polyandroid.models.EventModel;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 @SuppressLint("Registered")
 public class BaseActivity extends AppCompatActivity {
@@ -39,12 +36,9 @@ public class BaseActivity extends AppCompatActivity {
         return FirebaseDatabase.getInstance().getReference();
     }
 
-    public void pushNewsEvent(EventModel event) {
-        String key = getFireBaseRoot().child("events").push().getKey();
-        Log.d(TAG, "key :" + key);
-        Map<String, Object> childUpdate = new HashMap<>();
-        childUpdate.put("/event/" + key, event.toMap());
-        getFireBaseRoot().updateChildren(childUpdate);
+    public StorageReference getStorageRoot() {
+        return FirebaseStorage.getInstance().getReference();
     }
+
 
 }
