@@ -46,7 +46,7 @@ public class MyStorage {
                 });
     }
 
-    public void loadImage(Context context, ImageView imageView, String reference) {
+    public void loadImageFromPath(Context context, ImageView imageView, String reference) {
         final Context mC = context;
         final ImageView iv = imageView;
         mStorageRef.child(reference).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -55,7 +55,7 @@ public class MyStorage {
                 Glide.with(mC)
                         .load(uri.toString())
                         .into(iv);
-                Log.d(TAG, "image load from " + uri.toString());
+                //Log.d(TAG, "image load from " + uri.toString());
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -63,6 +63,13 @@ public class MyStorage {
                 Log.d(TAG, "image fail to load", e);
             }
         });
+    }
 
+    public void loadImageFromUrl(Context context, ImageView imageView, String reference){
+        final Context mC = context;
+        final ImageView iv = imageView;
+        Glide.with(mC)
+                .load(reference)
+                .into(iv);
     }
 }

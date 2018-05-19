@@ -74,6 +74,7 @@ public abstract class EventListFragment extends BaseFragment {
             }
             @Override
             protected void onBindViewHolder(@NonNull EventViewHolder holder, final int position, @NonNull final EventModel model) {
+                Log.d(TAG, "model : "+model.toString());
                 holder.bindToEvent(model, mContext);
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {

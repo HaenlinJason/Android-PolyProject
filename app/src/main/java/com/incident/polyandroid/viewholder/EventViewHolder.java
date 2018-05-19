@@ -37,7 +37,9 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
         titleView.setText(event.title);
         locateView.setText(event.locate);
         dateView.setText(event.date);
-        //if (event.image != null)
-        storage.loadImage(context, imageView, "image/panda-kawaii-chibi.jpg");
+        if (event.pictures_url == null)
+            storage.loadImageFromPath(context, imageView, "image/panda-kawaii-chibi.jpg");
+        else
+            storage.loadImageFromUrl(context, imageView, event.pictures_url.get(0));
     }
 }

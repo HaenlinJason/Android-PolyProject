@@ -47,6 +47,7 @@ public class MyDatabase {
         @Override
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
             Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
+            Log.d(TAG, "onChildAdded:" + dataSnapshot.getValue());
         }
 
         @Override

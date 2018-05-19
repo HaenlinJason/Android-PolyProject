@@ -54,9 +54,6 @@ public class MainActivity extends BaseActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        /*MyDatabase myDatabase = new MyDatabase("events");
-        myDatabase.pushNewsEvent(new EventModel("aesfhucdshiu","b","c","d","e"));*/
-
         if (savedInstanceState == null) {
 
             FragmentManager fragmentManager = getSupportFragmentManager();

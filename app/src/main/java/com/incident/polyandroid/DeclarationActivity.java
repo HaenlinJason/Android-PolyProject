@@ -258,7 +258,7 @@ public class DeclarationActivity extends BaseActivity {
 
         String type = typeSpinner.getSelectedItem().toString();
         if (type.equals(getString(R.string.default_spinner))) type = " ";
-        
+
         return new EventModel(title, type, lieu, comment, time, urls);
     }
 }
