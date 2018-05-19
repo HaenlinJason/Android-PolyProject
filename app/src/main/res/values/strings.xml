@@ -22,5 +22,6 @@
     <string name="sort_incident_importance">Incident à urgence élevé</string>
     <string name="sort_all_incident">Tous les incidents</string>
     <string name="button_text_take_picture">Prendre une photo</string>
+    <string name="default_spinner">choisir...</string>
 
 </resources>

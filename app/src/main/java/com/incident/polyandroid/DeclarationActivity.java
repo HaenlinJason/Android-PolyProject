@@ -8,30 +8,33 @@ import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.incident.polyandroid.firebase.MyDatabase;
-import com.incident.polyandroid.models.DataModel;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.incident.polyandroid.models.EventModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DeclarationActivity extends BaseActivity {
     private static final String TAG = "DEBUG_DB";
 
     private Integer compteur = 0;
-    private MyDatabase mdatabase;
-    private DataModel mdata;
+    private List<String> dataLieu;
+    private List<String> dataType;
+    private List<String> dataImportance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_declaration);
-        mdata = new DataModel();
-        mdatabase = new MyDatabase("enum");
-        mdatabase.subscribeEnumData(mdata);
 
         FloatingActionButton fab = findViewById(R.id.buttonValider);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -43,18 +46,79 @@ public class DeclarationActivity extends BaseActivity {
 
         EditText titre = findViewById(R.id.EditTextTitre);
 
+        dataLieu = new ArrayList<String>();
+        dataLieu.add(getString(R.string.default_spinner));
+        dataType = new ArrayList<String>();
+        dataType.add(getString(R.string.default_spinner));
+        dataImportance = new ArrayList<String>();
+        dataImportance.add(getString(R.string.default_spinner));
 
-        Spinner lieu = findViewById(R.id.spinnerLieu);
+        getFireBaseRoot().child("enum").child("lieu").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d(TAG, "onDataChange : " + dataSnapshot.getValue());
 
+                for (DataSnapshot singleSnapshot: dataSnapshot.getChildren()) {
+                    dataLieu.add(singleSnapshot.getValue(String.class));
+                }
 
-        Spinner type = findViewById(R.id.spinnerType);
+                Spinner lieuSpinner = findViewById(R.id.spinnerLieu);
+                ArrayAdapter<String> lieuAdapter = new ArrayAdapter(DeclarationActivity.this, android.R.layout.simple_spinner_item, dataLieu);
+                lieuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                lieuSpinner.setAdapter(lieuAdapter);
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-        Spinner urgence = findViewById(R.id.spinnerUrgence);
+            }
+        });
 
+        getFireBaseRoot().child("enum").child("importance").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d(TAG, "onDataChange : " + dataSnapshot.getValue());
+
+                for (DataSnapshot singleSnapshot: dataSnapshot.getChildren()) {
+                    dataImportance.add(singleSnapshot.getValue(String.class));
+                }
+
+                Spinner lieuSpinner = findViewById(R.id.spinnerUrgence);
+                ArrayAdapter<String> lieuAdapter = new ArrayAdapter(DeclarationActivity.this, android.R.layout.simple_spinner_item, dataImportance);
+                lieuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                lieuSpinner.setAdapter(lieuAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        getFireBaseRoot().child("enum").child("type").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d(TAG, "onDataChange : " + dataSnapshot.getValue());
+
+                for (DataSnapshot singleSnapshot: dataSnapshot.getChildren()) {
+                    dataType.add(singleSnapshot.getValue(String.class));
+                }
+
+                Spinner lieuSpinner = findViewById(R.id.spinnerType);
+                ArrayAdapter<String> lieuAdapter = new ArrayAdapter(DeclarationActivity.this, android.R.layout.simple_spinner_item, dataType);
+                lieuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                lieuSpinner.setAdapter(lieuAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         Button takePhoto = findViewById(R.id.buttonTakePhoto);
-        takePhoto.setOnClickListener(new View.OnClickListener() {
+        takePhoto.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View v) {
                 onClickTakePhoto(v);

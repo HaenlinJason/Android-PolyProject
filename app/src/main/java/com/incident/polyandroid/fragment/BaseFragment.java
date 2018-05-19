@@ -1,20 +1,18 @@
-package com.incident.polyandroid;
+package com.incident.polyandroid.fragment;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
+import android.support.v4.app.Fragment;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-@SuppressLint("Registered")
-public class BaseActivity extends AppCompatActivity {
-
+public class BaseFragment extends Fragment {
     private ProgressDialog mProgressDialog;
 
-    public void showProgressDialog() {
+    public void showProgressDialog(Context context) {
         if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog = new ProgressDialog(context);
             mProgressDialog.setCancelable(false);
             mProgressDialog.setMessage("Loading...");
         }
@@ -31,5 +29,4 @@ public class BaseActivity extends AppCompatActivity {
     public DatabaseReference getFireBaseRoot() {
         return FirebaseDatabase.getInstance().getReference();
     }
-
 }
