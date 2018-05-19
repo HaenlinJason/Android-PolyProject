@@ -38,11 +38,13 @@ import java.util.UUID;
 public class DeclarationActivity extends BaseActivity {
     private static final String TAG = "DEBUG_DB";
 
-    private Integer compteur = 0;
+    private int cpt_image = 0;
+    private int cpt_url = 0;
     private List<String> dataLieu;
     private List<String> dataType;
     private List<String> dataImportance;
     private List<Bitmap> bitmap;
+    private List<String> urls;
 
     Spinner lieuSpinner;
     Spinner importanceSpinner;
@@ -56,6 +58,7 @@ public class DeclarationActivity extends BaseActivity {
         setContentView(R.layout.activity_declaration);
 
         bitmap = new ArrayList<>();
+        urls = new ArrayList<>();
 
         lieuSpinner = findViewById(R.id.spinnerLieu);
         importanceSpinner = findViewById(R.id.spinnerUrgence);
@@ -72,22 +75,12 @@ public class DeclarationActivity extends BaseActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SimpleDateFormat sdf = new SimpleDateFormat("d MMM y à HH:mm", Locale.FRANCE);
-                String time = sdf.format(Calendar.getInstance().getTime());
+                showProgressDialog();
                 if (!bitmap.isEmpty()) {
                     for (Bitmap img : bitmap) {
                         encodeBitmapAndSaveToFirebase(img);
                     }
-                }
-                String title = eventTitle.getText().toString();
-                String comment = commentary.getText().toString();
-                String lieu = lieuSpinner.getSelectedItem().toString();
-                String importance = importanceSpinner.getSelectedItem().toString();
-                String type = typeSpinner.getSelectedItem().toString();
-                pushNewsEvent(new EventModel(title, type, lieu, comment, time));
-                Toast toast = Toast.makeText(DeclarationActivity.this, R.string.toast_success_send, Toast.LENGTH_SHORT);
-                toast.show();
-                finish();
+                } else pushNewsEvent(createEventModel());
             }
         });
 
@@ -161,8 +154,6 @@ public class DeclarationActivity extends BaseActivity {
 
         eventTitle = findViewById(R.id.EditTextTitre);
         commentary = findViewById(R.id.EditTextCommentaire);
-
-
     }
 
     public void onClickTakePhoto(View v) {
@@ -172,7 +163,7 @@ public class DeclarationActivity extends BaseActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     private void dispatchTakePictureIntent() {
-        if (compteur < 2) {
+        if (cpt_image < 2) {
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
@@ -188,28 +179,28 @@ public class DeclarationActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (compteur == 0) {
-            compteur++;
+        if (cpt_image == 0) {
+            cpt_image++;
             ImageView image1 = findViewById(R.id.Image1);
             if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
                 bitmap.add((Bitmap) extras.get("data"));
-                image1.setImageBitmap(bitmap.get(compteur - 1));
+                image1.setImageBitmap(bitmap.get(cpt_image - 1));
             }
-        } else if (compteur == 1) {
-            compteur++;
+        } else if (cpt_image == 1) {
+            cpt_image++;
             ImageView image2 = findViewById(R.id.Image2);
             if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
                 bitmap.add((Bitmap) extras.get("data"));
-                image2.setImageBitmap(bitmap.get(compteur - 1));
+                image2.setImageBitmap(bitmap.get(cpt_image - 1));
             }
         }
     }
 
-    void encodeBitmapAndSaveToFirebase(Bitmap singlebitmap) {
+    void encodeBitmapAndSaveToFirebase(Bitmap singleBitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        singlebitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        singleBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
 
         UploadTask uploadTask = getStorageRoot().child("image/" + UUID.randomUUID().toString()).putBytes(data);
@@ -218,23 +209,56 @@ public class DeclarationActivity extends BaseActivity {
             public void onFailure(@NonNull Exception exception) {
                 // Handle unsuccessful uploads
                 Log.d(TAG, "error while uploading the file", exception);
+                Toast toast = Toast.makeText(DeclarationActivity.this, R.string.toast_fail_send, Toast.LENGTH_SHORT);
+                toast.show();
+                hideProgressDialog();
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                cpt_url++;
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                urls.add(downloadUrl.toString());
                 Log.d(TAG, "url : " + downloadUrl);
+                if (cpt_url == bitmap.size()) {
+                    pushNewsEvent(createEventModel());
+                }
+
             }
         });
 
     }
 
-    public void pushNewsEvent(EventModel event) {
+    private void pushNewsEvent(EventModel event) {
         String key = getFireBaseRoot().child("events").push().getKey();
         Log.d(TAG, "key :" + key);
         Map<String, Object> childUpdate = new HashMap<>();
         childUpdate.put("/events/" + key, event.toMap());
+        Log.d(TAG, "push : " + childUpdate.toString());
         getFireBaseRoot().updateChildren(childUpdate);
+        Toast toast = Toast.makeText(DeclarationActivity.this, R.string.toast_success_send, Toast.LENGTH_SHORT);
+        toast.show();
+        finish();
+    }
+
+    private EventModel createEventModel() {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("d MMM y à HH:mm", Locale.FRANCE);
+        String time = sdf.format(Calendar.getInstance().getTime());
+
+        String title = eventTitle.getText().toString();
+        String comment = commentary.getText().toString();
+
+        String lieu = lieuSpinner.getSelectedItem().toString();
+        if (lieu.equals(getString(R.string.default_spinner))) lieu = " ";
+
+        String importance = importanceSpinner.getSelectedItem().toString();
+        if (importance.equals(getString(R.string.default_spinner))) importance = " ";
+
+        String type = typeSpinner.getSelectedItem().toString();
+        if (type.equals(getString(R.string.default_spinner))) type = " ";
+        
+        return new EventModel(title, type, lieu, comment, time, urls);
     }
 }
