@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.incident.polyandroid.models.EventModel;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class DeclarationActivity extends BaseActivity {
@@ -31,20 +32,19 @@ public class DeclarationActivity extends BaseActivity {
     private List<String> dataType;
     private List<String> dataImportance;
 
+    Spinner lieuSpinner;
+    Spinner importanceSpinner;
+    Spinner typeSpinner;
+    EditText eventTitle;
+    EditText commentary;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_declaration);
 
-        FloatingActionButton fab = findViewById(R.id.buttonValider);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO
-            }
-        });
-
-        EditText titre = findViewById(R.id.EditTextTitre);
+        lieuSpinner = findViewById(R.id.spinnerLieu);
+        importanceSpinner = findViewById(R.id.spinnerUrgence);
+        typeSpinner = findViewById(R.id.spinnerType);
 
         dataLieu = new ArrayList<String>();
         dataLieu.add(getString(R.string.default_spinner));
@@ -52,6 +52,22 @@ public class DeclarationActivity extends BaseActivity {
         dataType.add(getString(R.string.default_spinner));
         dataImportance = new ArrayList<String>();
         dataImportance.add(getString(R.string.default_spinner));
+
+        FloatingActionButton fab = findViewById(R.id.buttonValider);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String title = eventTitle.getText().toString();
+                String comment = commentary.getText().toString();
+                String lieu = lieuSpinner.getSelectedItem().toString();
+                String importance = importanceSpinner.getSelectedItem().toString();
+                String type = typeSpinner.getSelectedItem().toString();
+                pushNewsEvent(new EventModel(title,type,lieu,comment, Calendar.getInstance().getTime().toString()));
+                Toast toast = Toast.makeText(DeclarationActivity.this, R.string.toast_success_send, Toast.LENGTH_SHORT);
+                toast.show();
+                finish();
+            }
+        });
 
         getFireBaseRoot().child("enum").child("lieu").addValueEventListener(new ValueEventListener() {
             @Override
@@ -62,7 +78,6 @@ public class DeclarationActivity extends BaseActivity {
                     dataLieu.add(singleSnapshot.getValue(String.class));
                 }
 
-                Spinner lieuSpinner = findViewById(R.id.spinnerLieu);
                 ArrayAdapter<String> lieuAdapter = new ArrayAdapter(DeclarationActivity.this, android.R.layout.simple_spinner_item, dataLieu);
                 lieuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 lieuSpinner.setAdapter(lieuAdapter);
@@ -73,7 +88,6 @@ public class DeclarationActivity extends BaseActivity {
 
             }
         });
-
         getFireBaseRoot().child("enum").child("importance").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -117,7 +131,6 @@ public class DeclarationActivity extends BaseActivity {
 
         Button takePhoto = findViewById(R.id.buttonTakePhoto);
         takePhoto.setOnClickListener(new View.OnClickListener()
-
         {
             @Override
             public void onClick(View v) {
@@ -125,13 +138,10 @@ public class DeclarationActivity extends BaseActivity {
             }
         });
 
-        EditText commentaire = findViewById(R.id.EditTextCommentaire);
+        eventTitle = findViewById(R.id.EditTextTitre);
+        commentary = findViewById(R.id.EditTextCommentaire);
 
 
-    }
-
-    public void onClickValider(View v) {
-        new EventModel();
     }
 
     public void onClickTakePhoto(View v) {

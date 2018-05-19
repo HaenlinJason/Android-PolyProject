@@ -23,5 +23,6 @@
     <string name="sort_all_incident">Tous les incidents</string>
     <string name="button_text_take_picture">Prendre une photo</string>
     <string name="default_spinner">choisir...</string>
+    <string name="toast_success_send">Déclaration envoyé</string>
 
 </resources>

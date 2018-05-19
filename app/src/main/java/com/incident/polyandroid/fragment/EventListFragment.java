@@ -66,14 +66,12 @@ public abstract class EventListFragment extends BaseFragment {
                 .build();
 
         mAdapter = new FirebaseRecyclerAdapter<EventModel, EventViewHolder>(options) {
-
             @Override
             public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 final View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
                 hideProgressDialog();
                 return new EventViewHolder(itemView);
             }
-
             @Override
             protected void onBindViewHolder(@NonNull EventViewHolder holder, final int position, @NonNull final EventModel model) {
                 holder.bindToEvent(model, mContext);

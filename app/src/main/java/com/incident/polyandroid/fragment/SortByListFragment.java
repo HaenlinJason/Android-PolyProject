@@ -34,16 +34,12 @@ public class SortByListFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
                     MyEventFragmentSortByImportance fragment = new MyEventFragmentSortByImportance();
-
                     fragmentTransaction.replace(R.id.main_content_fragment, fragment);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
-
             }
         });
 
@@ -51,17 +47,13 @@ public class SortByListFragment extends Fragment {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 ((ViewGroup)v.getParent()).removeView(v);
-
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 MyEventFragment fragment = new MyEventFragment();
                 fragmentTransaction.replace(R.id.main_content_fragment, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-
             }
         });
 
@@ -69,16 +61,13 @@ public class SortByListFragment extends Fragment {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                     ((ViewGroup) v.getParent()).removeView(v);
-
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     MyEventFragment fragment = new MyEventFragment();
                     fragmentTransaction.replace(R.id.main_content_fragment, fragment);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
-
             }
         });
 
@@ -86,9 +75,7 @@ public class SortByListFragment extends Fragment {
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                     ((ViewGroup) v.getParent()).removeView(v);
-
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     MyEventFragment fragment = new MyEventFragment();
