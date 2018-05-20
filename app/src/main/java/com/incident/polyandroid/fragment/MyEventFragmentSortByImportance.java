@@ -11,6 +11,8 @@ public class MyEventFragmentSortByImportance extends EventListFragment {
     @Override
     public Query getQuery(DatabaseReference databaseReference) {
         // All the eventsMyEventFragment
-        return databaseReference.child("events");
+        Query query = databaseReference.child("events").orderByChild("title").equalTo("Laptop perdu");
+        //Query query = databaseReference.child("events").orderByChild("date").startAt().endAt();
+        return query;
     }
 }

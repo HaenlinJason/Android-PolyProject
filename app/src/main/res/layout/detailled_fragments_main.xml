@@ -51,7 +51,7 @@
         android:layout_below="@+id/titre"
         android:layout_marginTop="56dp"
         android:text="Lieu"
-        android:textSize="24sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/date"
@@ -61,7 +61,7 @@
         android:layout_alignBottom="@+id/lieu"
         android:layout_alignParentEnd="true"
         android:text="Date"
-        android:textSize="24sp" />
+        android:textSize="20sp" />
 
     <HorizontalScrollView
         android:layout_width="match_parent"

@@ -21,7 +21,14 @@ public class DetailledEventActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventModel eventModel = getIntent().getExtras().getParcelable("event");
+        EventModel eventModel = new EventModel();
+        try {
+            eventModel = getIntent().getExtras().getParcelable("event");
+
+        }
+        catch (Exception e){
+
+        }
 
         setContentView(R.layout.detailled_fragments_main);
         addImagesToThegallery();
