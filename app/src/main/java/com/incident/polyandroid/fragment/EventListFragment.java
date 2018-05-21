@@ -59,36 +59,40 @@ public abstract class EventListFragment extends BaseFragment {
 
         // Set up FireBaseRecyclerAdapter with the Query
         Query eventsQuery = getQuery(getFireBaseRoot());
-        Log.d(TAG, "query : " + eventsQuery.toString());
 
-        FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<EventModel>()
-                .setQuery(eventsQuery, EventModel.class)
-                .build();
+        if (eventsQuery!=null) {
+            Log.d(TAG, "query : " + eventsQuery.toString());
 
-        mAdapter = new FirebaseRecyclerAdapter<EventModel, EventViewHolder>(options) {
-            @Override
-            public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                final View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
-                hideProgressDialog();
-                return new EventViewHolder(itemView);
-            }
-            @Override
-            protected void onBindViewHolder(@NonNull EventViewHolder holder, final int position, @NonNull final EventModel model) {
-                Log.d(TAG, "model : "+model.toString());
-                holder.bindToEvent(model, mContext);
+            FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<EventModel>()
+                    .setQuery(eventsQuery, EventModel.class)
+                    .build();
 
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast toast = Toast.makeText(mContext, "event : " + position, Toast.LENGTH_SHORT);
-                        toast.show();
-                        Intent intent = new Intent(mContext, DetailledEventActivity.class);
-                        intent.putExtra("event", model);
-                        startActivity(intent);
-                    }
-                });
-            }
-        };
+            mAdapter = new FirebaseRecyclerAdapter<EventModel, EventViewHolder>(options) {
+                @Override
+                public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                    final View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
+                    hideProgressDialog();
+                    return new EventViewHolder(itemView);
+                }
+
+                @Override
+                protected void onBindViewHolder(@NonNull EventViewHolder holder, final int position, @NonNull final EventModel model) {
+                    Log.d(TAG, "model : " + model.toString());
+                    holder.bindToEvent(model, mContext);
+
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast toast = Toast.makeText(mContext, "event : " + position, Toast.LENGTH_SHORT);
+                            toast.show();
+                            Intent intent = new Intent(mContext, DetailledEventActivity.class);
+                            intent.putExtra("event", model);
+                            startActivity(intent);
+                        }
+                    });
+                }
+            };
+        }
         mRecycler.setAdapter(mAdapter);
     }
 

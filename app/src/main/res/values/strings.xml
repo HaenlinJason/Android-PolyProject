@@ -28,5 +28,7 @@
     <string name="incidents_recents">Incidents récents</string>
     <string name="notification">Notification :</string>
     <string name="Notification_Preference">notification_preference</string>
+    <string name="sort_degradation">sort_degradation</string>
+    <string name="degradation">Degradation</string>
 
 </resources>

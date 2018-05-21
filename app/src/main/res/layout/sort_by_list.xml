@@ -8,48 +8,43 @@
 
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/incidents_recents"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSortByImportance" />
-
-
-    <Button
-        android:id="@+id/buttonSortByImportance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/SortByImportance"
+        android:layout_width="175dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="135dp"
         android:layout_weight="1"
         android:text="@string/sort_incident_importance"
-        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SortByAll" />
+        app:layout_constraintTop_toBottomOf="@+id/SortByNew" />
 
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Button3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <Button
         android:id="@+id/SortByAll"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="175dp"
+        android:layout_height="63dp"
         android:layout_weight="1"
         android:text="@string/sort_all_incident"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSortByImportance"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/SortByNew"
+        android:layout_width="175dp"
+        android:layout_height="63dp"
+        android:layout_weight="1"
+        android:text="@string/incidents_recents"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/SortByDegradation"
+        android:layout_width="175dp"
+        android:layout_height="163dp"
+        android:layout_marginTop="135dp"
+        android:layout_weight="1"
+        android:drawableTop="@drawable/degradation"
+        android:text="@string/degradation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SortByAll" />
+
 </android.support.constraint.ConstraintLayout>

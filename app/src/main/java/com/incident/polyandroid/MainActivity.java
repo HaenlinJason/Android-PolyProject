@@ -40,32 +40,17 @@ public class MainActivity extends BaseActivity
     public static final String PREFS_NAME = "MyPrefsFile";
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putString("silentMode", "true");
-        editor.commit();
+        editor.putString("Notification","true");
+        editor.apply();
+        String silent = settings.getString("Notification", "false");
 
-        SharedPreferences settings2 = getSharedPreferences(PREFS_NAME, 0);
-        String silent = settings2.getString("silentMode", "false");
+        Log.d(TAG, " Notification Status : " + silent);
 
-
-        silent = settings2.getString("silentMode", "false");
-
-       /* Context context = this;
-        SharedPreferences sharedPref2 = this.getPreferences(Context.MODE_PRIVATE);
-        int defaultValue = sharedPref2.getString(R.string.Notification_Preference),null);
-
-        int yolo =0;*/
-
-
-        Log.d(TAG, "+++++++++++++   " + silent);
-
-        //SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         super.onCreate(savedInstanceState);
         hideProgressDialog();
         setContentView(R.layout.activity_main);

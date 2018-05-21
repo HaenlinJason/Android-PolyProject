@@ -30,44 +30,30 @@ public class SortByListFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.sort_by_list, container, false);
 
-        Button button = (Button) rootView.findViewById(R.id.button);
+        Button button = (Button) rootView.findViewById(R.id.SortByImportance);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    MyEventFragmentSortByImportance fragment = new MyEventFragmentSortByImportance();
-                    fragmentTransaction.replace(R.id.main_content_fragment, fragment);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+                    EventListFragment fragment = new MyEventFragmentSortByImportance();
+                    MoveToAppropriateMyEventFragment(fragment);
             }
         });
 
-        Button button2 = (Button) rootView.findViewById(R.id.buttonSortByImportance);
+        Button button2 = (Button) rootView.findViewById(R.id.SortByNew);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ViewGroup)v.getParent()).removeView(v);
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                MyEventFragment fragment = new MyEventFragment();
-                fragmentTransaction.replace(R.id.main_content_fragment, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                EventListFragment fragment = new MyEventFragment();
+                MoveToAppropriateMyEventFragment(fragment);
             }
         });
 
-        Button button3 = (Button) rootView.findViewById(R.id.button3);
+        Button button3 = (Button) rootView.findViewById(R.id.SortByDegradation);
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    ((ViewGroup) v.getParent()).removeView(v);
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    MyEventFragment fragment = new MyEventFragment();
-                    fragmentTransaction.replace(R.id.main_content_fragment, fragment);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+                EventListFragment fragment = new MyEventFragmentSortByDegradation();
+                MoveToAppropriateMyEventFragment(fragment);
             }
         });
 
@@ -75,13 +61,8 @@ public class SortByListFragment extends Fragment {
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    ((ViewGroup) v.getParent()).removeView(v);
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    MyEventFragment fragment = new MyEventFragment();
-                    fragmentTransaction.replace(R.id.main_content_fragment, fragment);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+                EventListFragment fragment = new MyEventFragmentSortByImportance();
+                MoveToAppropriateMyEventFragment(fragment);
             }
         });
 
@@ -104,6 +85,14 @@ public class SortByListFragment extends Fragment {
     }
 
     public void onButtonClickCancel(View view) {
+    }
+
+    public void MoveToAppropriateMyEventFragment(EventListFragment myEventFragment){
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.main_content_fragment, myEventFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
 }
