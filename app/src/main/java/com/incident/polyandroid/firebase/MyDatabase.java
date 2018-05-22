@@ -1,5 +1,6 @@
 package com.incident.polyandroid.firebase;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.google.firebase.database.ChildEventListener;
@@ -8,6 +9,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.incident.polyandroid.NotificationService;
 import com.incident.polyandroid.models.EventModel;
 
 import java.util.HashMap;
@@ -84,4 +86,6 @@ public class MyDatabase {
         if (childEventListener != null)
             mDatabase.removeEventListener(childEventListener);
     }
+
+
 }

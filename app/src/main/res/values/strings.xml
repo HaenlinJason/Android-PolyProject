@@ -19,7 +19,7 @@
     <string name="urgence">Urgence :</string>
     <string name="images">Images :</string>
     <string name="commentaires">Commentaires...</string>
-    <string name="sort_incident_importance">Incidents à urgence élevé</string>
+    <string name="sort_incident_importance">Incidents graves</string>
     <string name="sort_all_incident">Tous les incidents</string>
     <string name="button_text_take_picture">Prendre une photo</string>
     <string name="default_spinner">choisir...</string>

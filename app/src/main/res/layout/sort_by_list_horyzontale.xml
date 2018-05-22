@@ -10,8 +10,7 @@
     <Button
         android:id="@+id/SortByImportance"
         android:layout_width="175dp"
-        android:layout_height="163dp"
-        android:layout_marginTop="15dp"
+        android:layout_height="145dp"
         android:layout_weight="1"
         android:text="@string/sort_incident_importance"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,9 +20,8 @@
     <Button
         android:id="@+id/SortByAll"
         android:layout_width="175dp"
-        android:layout_height="163dp"
+        android:layout_height="145dp"
         android:layout_weight="1"
-        android:drawableTop="@drawable/degradation"
         android:text="@string/sort_all_incident"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,9 +29,8 @@
     <Button
         android:id="@+id/SortByNew"
         android:layout_width="175dp"
-        android:layout_height="163dp"
+        android:layout_height="145dp"
         android:layout_weight="1"
-        android:drawableTop="@drawable/degradation"
         android:text="@string/incidents_recents"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -41,10 +38,8 @@
     <Button
         android:id="@+id/SortByDegradation"
         android:layout_width="175dp"
-        android:layout_height="163dp"
-        android:layout_marginTop="15dp"
+        android:layout_height="145dp"
         android:layout_weight="1"
-        android:drawableTop="@drawable/degradation"
         android:text="@string/degradation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SortByAll" />
@@ -52,21 +47,21 @@
     <Button
         android:id="@+id/SortByObjets"
         android:layout_width="175dp"
-        android:layout_height="163dp"
-        android:layout_marginTop="15dp"
-        android:drawableTop="@drawable/degradation"
+        android:layout_height="145dp"
+
         android:text="Objets perdus"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SortByDegradation" />
+        app:layout_constraintEnd_toStartOf="@+id/SortByNew"
+        app:layout_constraintStart_toEndOf="@+id/SortByAll"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/SortByAutres"
         android:layout_width="175dp"
-        android:layout_height="163dp"
-        android:layout_marginTop="15dp"
-        android:drawableTop="@drawable/degradation"
+        android:layout_height="145dp"
+
         android:text="Autres Incidents"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SortByImportance" />
+        app:layout_constraintEnd_toStartOf="@+id/SortByImportance"
+        app:layout_constraintStart_toEndOf="@+id/SortByDegradation"
+        app:layout_constraintTop_toBottomOf="@+id/SortByObjets" />
 
 </android.support.constraint.ConstraintLayout>

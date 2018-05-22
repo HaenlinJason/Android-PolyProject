@@ -20,9 +20,22 @@
         android:layout_gravity="start|top">
 
         <LinearLayout
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lieu :" />
+
+            <Spinner
+                android:id="@+id/spinnerSortLieu"
+                android:layout_width="@dimen/spinner_width"
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:layout_marginTop="50dp"

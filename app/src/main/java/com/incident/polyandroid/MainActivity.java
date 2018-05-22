@@ -1,5 +1,6 @@
 package com.incident.polyandroid;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -22,8 +23,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.incident.polyandroid.firebase.MyDatabase;
 import com.incident.polyandroid.firebase.MyStorage;
 import com.incident.polyandroid.fragment.MyEventFragment;
@@ -38,6 +44,9 @@ public class MainActivity extends BaseActivity
 
     private static final String TAG = "DEBUG_DB";
     public static final String PREFS_NAME = "MyPrefsFile";
+    Spinner sortLieu;
+    List<String> sortLieuArray;
+
 
 
     @Override
@@ -45,7 +54,7 @@ public class MainActivity extends BaseActivity
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putString("Notification","true");
+        editor.putString("Notification", "true");
         editor.apply();
         String silent = settings.getString("Notification", "false");
 
@@ -64,12 +73,16 @@ public class MainActivity extends BaseActivity
                 createDeclarationActivity(view);
             }
         });
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        sortLieu = findViewById(R.id.spinnerSortLieu);
+        sortLieuArray = new ArrayList<>();
+        sortLieuArray.add(getString(R.string.default_spinner));
+
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -85,7 +98,28 @@ public class MainActivity extends BaseActivity
             fragmentTransaction.add(R.id.main_content_fragment, fragment);
             fragmentTransaction.commit();
         }
+
+        getFireBaseRoot().child("enum").child("lieu").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d(TAG, "onDataChange : " + dataSnapshot.getValue());
+
+                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                    sortLieuArray.add(singleSnapshot.getValue(String.class));
+                }
+
+                ArrayAdapter<String> lieuAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_spinner_item, sortLieuArray);
+                lieuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                sortLieu.setAdapter(lieuAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
+
 
     @Override
     public void onBackPressed() {
@@ -112,9 +146,6 @@ public class MainActivity extends BaseActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -150,12 +181,15 @@ public class MainActivity extends BaseActivity
     }
 
     public void createDeclarationActivity(View view) {
+        notif();
         Intent intent = new Intent(this, DeclarationActivity.class);
         startActivity(intent);
     }
 
+
     public void notif(){
-        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        //startService(new Intent(this, NotificationService.class));
+        /*NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
 
         List<String> list = new ArrayList<>();
 
@@ -174,6 +208,7 @@ public class MainActivity extends BaseActivity
                 .setContentText("aaa")
                 .setContentIntent(pendingIntent);
 
-        notificationManager.notify(1, builder.build());
+        notificationManager.notify(1, builder.build());*/
+
     }
 }
