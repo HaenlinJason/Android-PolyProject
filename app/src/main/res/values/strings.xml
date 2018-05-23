@@ -30,5 +30,6 @@
     <string name="Notification_Preference">notification_preference</string>
     <string name="sort_degradation">sort_degradation</string>
     <string name="degradation">Degradation</string>
+    <string name="default_notification_channel_id">1</string>
 
 </resources>
