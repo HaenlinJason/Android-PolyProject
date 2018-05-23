@@ -12,6 +12,7 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.incident.polyandroid.MainActivity;
+import com.incident.polyandroid.MyApplication;
 import com.incident.polyandroid.R;
 
 import java.util.Map;
@@ -23,7 +24,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Log.v(TAG, "From: " + remoteMessage.getFrom());
 
-        if (remoteMessage.getData().size() > 0) {
+        if (remoteMessage.getData().size() > 0 && !remoteMessage.getData().get(getString(R.string.payload_id)).equals(((MyApplication) this.getApplication()).getIdLastCommit())) {
             Map<String, String> payload = remoteMessage.getData();
             Log.v(TAG, "Message data payload: " + remoteMessage.getData());
             buildNotification();

@@ -232,6 +232,7 @@ public class DeclarationActivity extends BaseActivity {
 
     private void pushNewsEvent(EventModel event) {
         String key = getFireBaseRoot().child("events").push().getKey();
+        ((MyApplication)this.getApplication()).setIdLastCommit(key);
         Log.d(TAG, "key :" + key);
         Map<String, Object> childUpdate = new HashMap<>();
         childUpdate.put("/events/" + key, event.toMap());
