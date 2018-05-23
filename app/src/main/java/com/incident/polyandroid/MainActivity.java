@@ -158,19 +158,11 @@ public class MainActivity extends BaseActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        Log.d(TAG,"nav heay");
+        if (id == R.id.toggleButton_notification_activation) {
+            Log.d(TAG,"CLICK2");
         } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+            Log.d(TAG,"CLICK3");
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
