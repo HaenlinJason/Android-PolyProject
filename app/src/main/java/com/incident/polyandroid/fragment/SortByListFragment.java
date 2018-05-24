@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.incident.polyandroid.R;
@@ -91,8 +92,8 @@ public class SortByListFragment extends Fragment {
             }
         });
 
-        Button button3 = (Button) rootView.findViewById(R.id.SortByDegradation);
-        button3.setCompoundDrawablesWithIntrinsicBounds(null, degradation , null, null);
+        ImageButton button3 = (ImageButton) rootView.findViewById(R.id.SortByDegradation);
+        //button3.setCompoundDrawablesWithIntrinsicBounds(null, degradation , null, null);
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,8 +113,8 @@ public class SortByListFragment extends Fragment {
         });
 
 
-        Button button5 = (Button) rootView.findViewById(R.id.SortByObjets);
-        button5.setCompoundDrawablesWithIntrinsicBounds(null, objets , null, null);
+        ImageButton button5 = (ImageButton) rootView.findViewById(R.id.SortByObjets);
+        //button5.setCompoundDrawablesWithIntrinsicBounds(null, objets , null, null);
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

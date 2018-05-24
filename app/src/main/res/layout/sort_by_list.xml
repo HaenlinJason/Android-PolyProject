@@ -38,26 +38,40 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/SortByDegradation"
         android:layout_width="175dp"
         android:layout_height="163dp"
         android:layout_marginTop="15dp"
         android:layout_weight="1"
+        android:background="@drawable/degradation"
         android:drawableTop="@drawable/degradation"
-        android:text="@string/degradation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SortByAll" />
 
-    <Button
+    <TextView
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:text="Dégradations"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/SortByDegradation" />
+
+    <ImageButton
         android:id="@+id/SortByObjets"
         android:layout_width="175dp"
         android:layout_height="163dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:drawableTop="@drawable/degradation"
-        android:text="Objets perdus"
+        android:background="@drawable/objets"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SortByDegradation" />
+    <TextView
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:text="Objets perdus"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/SortByObjets"/>
+
 
     <Button
         android:id="@+id/SortByAutres"
