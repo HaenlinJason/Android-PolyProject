@@ -71,9 +71,9 @@ public class SortByListFragment extends Fragment {
         Bitmap bitmap6 = ((BitmapDrawable) dr6).getBitmap();
         Drawable autres = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap6, 500, 330, true));
 
-        Button button = (Button) rootView.findViewById(R.id.SortByImportance);
-        button.setCompoundDrawablesWithIntrinsicBounds(null, urgent , null, null);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button button_hurry = (Button) rootView.findViewById(R.id.SortByImportance);
+        button_hurry.setCompoundDrawablesWithIntrinsicBounds(null, urgent , null, null);
+        button_hurry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                     EventListFragment fragment = new MyEventFragmentSortByImportance();
@@ -81,19 +81,19 @@ public class SortByListFragment extends Fragment {
             }
         });
 
-        Button button2 = (Button) rootView.findViewById(R.id.SortByNew);
-        button2.setCompoundDrawablesWithIntrinsicBounds(null, recent , null, null);
-        button2.setOnClickListener(new View.OnClickListener() {
+        Button button_recent = (Button) rootView.findViewById(R.id.SortByNew);
+        button_recent.setCompoundDrawablesWithIntrinsicBounds(null, recent , null, null);
+        button_recent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventListFragment fragment = new MyEventFragment();
+                EventListFragment fragment = new MyEventFragmentSortByDate();
                 MoveToAppropriateMyEventFragment(fragment);
             }
         });
 
-        Button button3 = (Button) rootView.findViewById(R.id.SortByDegradation);
-        button3.setCompoundDrawablesWithIntrinsicBounds(null, degradation , null, null);
-        button3.setOnClickListener(new View.OnClickListener() {
+        Button button_decay = (Button) rootView.findViewById(R.id.SortByDegradation);
+        button_decay.setCompoundDrawablesWithIntrinsicBounds(null, degradation , null, null);
+        button_decay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EventListFragment fragment = new MyEventFragmentSortByDegradation();
@@ -101,9 +101,9 @@ public class SortByListFragment extends Fragment {
             }
         });
 
-        Button button4 = (Button) rootView.findViewById(R.id.SortByAll);
-        button4.setCompoundDrawablesWithIntrinsicBounds(null, all , null, null);
-        button4.setOnClickListener(new View.OnClickListener() {
+        Button button_all = (Button) rootView.findViewById(R.id.SortByAll);
+        button_all.setCompoundDrawablesWithIntrinsicBounds(null, all , null, null);
+        button_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EventListFragment fragment = new MyEventFragmentSortByImportance();
@@ -112,9 +112,9 @@ public class SortByListFragment extends Fragment {
         });
 
 
-        Button button5 = (Button) rootView.findViewById(R.id.SortByObjets);
-        button5.setCompoundDrawablesWithIntrinsicBounds(null, objets , null, null);
-        button5.setOnClickListener(new View.OnClickListener() {
+        Button button_objets = (Button) rootView.findViewById(R.id.SortByObjets);
+        button_objets.setCompoundDrawablesWithIntrinsicBounds(null, objets , null, null);
+        button_objets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EventListFragment fragment = new MyEventFragmentSortByImportance();
@@ -122,9 +122,9 @@ public class SortByListFragment extends Fragment {
             }
         });
 
-        Button button6 = (Button) rootView.findViewById(R.id.SortByAutres);
-        button6.setCompoundDrawablesWithIntrinsicBounds(null, autres , null, null);
-        button6.setOnClickListener(new View.OnClickListener() {
+        Button button_others = (Button) rootView.findViewById(R.id.SortByAutres);
+        button_others.setCompoundDrawablesWithIntrinsicBounds(null, autres , null, null);
+        button_others.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EventListFragment fragment = new MyEventFragmentSortByImportance();

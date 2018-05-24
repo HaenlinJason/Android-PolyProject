@@ -124,9 +124,6 @@ public class MainActivity extends BaseActivity
 
             }
         });
-
-        getFireBaseRoot().addChildEventListener(childEventListener);
-
     }
 
 
@@ -185,72 +182,5 @@ public class MainActivity extends BaseActivity
     public void createDeclarationActivity(View view) {
         Intent intent = new Intent(this, DeclarationActivity.class);
         startActivity(intent);
-    }
-
-
-    private ChildEventListener childEventListener = new ChildEventListener() {
-
-
-        @Override
-        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-            Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
-            Log.d(TAG, "onChildAdded:" + dataSnapshot.getValue());
-
-            notif();
-        }
-
-        @Override
-        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            Log.d(TAG, "onChildChanged:" + dataSnapshot.getKey());
-            notif();
-
-        }
-
-        @Override
-        public void onChildRemoved(DataSnapshot dataSnapshot) {
-            Log.d(TAG, "onChildRemoved:" + dataSnapshot.getKey());
-            notif();
-
-        }
-
-        @Override
-        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            Log.d(TAG, "onChildMoved:" + dataSnapshot.getKey());
-            notif();
-
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-            Log.w(TAG, "postComments:onCancelled", databaseError.toException());
-
-        }
-    };
-
-    public void notif(){
-        //startService(new Intent(this, NotificationService.class));
-        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-
-        List<String> list = new ArrayList<>();
-
-        EventModel model = new EventModel("a", "b", "c", "d", "e",list);
-        Intent intent = new Intent(this, DetailledEventActivity.class);
-        intent.putExtra("event", model);
-        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        PendingIntent pendingIntent = TaskStackBuilder.create(this)
-                .addNextIntentWithParentStack(intent)
-                .getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);//lkl
-
-
-        Notification.Builder builder = new Notification.Builder(this)
-                .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.drawable.polytechnotification)
-                .setContentTitle("ddd")
-                .setContentText("aaa")
-                .setSound(alarmSound)
-                .setContentIntent(pendingIntent);
-
-        notificationManager.notify(1, builder.build());
-
     }
 }
