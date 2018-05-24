@@ -57,7 +57,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
 		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 
-		Boolean silent = settings.getBoolean("Notification", true);
+		Boolean silent = settings.getBoolean(getString(R.string.notification_state), true);
 		//Log.d(TAG, " Notification Status : " + silent);
 
 		FirebaseMessaging.getInstance().subscribeToTopic("events");
@@ -76,7 +76,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 				Toast.makeText(getApplicationContext(), String.valueOf(test),Toast.LENGTH_LONG).show();
 				SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 				SharedPreferences.Editor editor = settings.edit();
-				editor.putBoolean("Notification", test);
+				editor.putBoolean(getString(R.string.notification_state), test);
 				editor.apply();
 
 			}

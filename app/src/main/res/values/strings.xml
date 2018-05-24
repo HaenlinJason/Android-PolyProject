@@ -25,7 +25,7 @@
     <string name="default_spinner">choisir...</string>
     <string name="toast_success_send">Déclaration envoyé</string>
     <string name="toast_fail_send">envoi échoué</string>
-    <string name="incidents_recents">Incidents récents</string>
+    <string name="incidents_recents" translatable="false">Incidents récents</string>
     <string name="notification">Notification :</string>
     <string name="Notification_Preference">notification_preference</string>
     <string name="sort_degradation">sort_degradation</string>
@@ -38,5 +38,6 @@
     <string name="level_mid">mid</string>
     <string name="level_low">low</string>
     <string name="label_detailled_event_activity">Détails de l\'incident</string>
+    <string name="notification_state">Notification_state</string>
 
 </resources>

@@ -76,7 +76,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 
-            Boolean silent = settings.getBoolean("Notification", true);
+            Boolean silent = settings.getBoolean(getString(R.string.notification_state), true);
 
 
             if (silent) {
