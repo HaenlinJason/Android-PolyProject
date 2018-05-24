@@ -8,6 +8,8 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -27,6 +29,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -51,6 +54,8 @@ public class MainActivity extends BaseActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+            /*NotificationService notificationService = new NotificationService();
+        notificationService.notif();*/
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
@@ -88,10 +93,8 @@ public class MainActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         if (savedInstanceState == null) {
-
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
             //MyEventFragment fragment = new MyEventFragment();
             SortByListFragment fragment = new SortByListFragment();
             //fragmentTransaction.add(R.id.main_content_fragment, fragment);
@@ -118,7 +121,11 @@ public class MainActivity extends BaseActivity
 
             }
         });
+
+        getFireBaseRoot().addChildEventListener(childEventListener);
+
     }
+
 
 
     @Override
@@ -181,21 +188,60 @@ public class MainActivity extends BaseActivity
     }
 
     public void createDeclarationActivity(View view) {
-        notif();
         Intent intent = new Intent(this, DeclarationActivity.class);
         startActivity(intent);
     }
 
 
+    private ChildEventListener childEventListener = new ChildEventListener() {
+
+
+        @Override
+        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
+            Log.d(TAG, "onChildAdded:" + dataSnapshot.getValue());
+
+            notif();
+        }
+
+        @Override
+        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            Log.d(TAG, "onChildChanged:" + dataSnapshot.getKey());
+            notif();
+
+        }
+
+        @Override
+        public void onChildRemoved(DataSnapshot dataSnapshot) {
+            Log.d(TAG, "onChildRemoved:" + dataSnapshot.getKey());
+            notif();
+
+        }
+
+        @Override
+        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            Log.d(TAG, "onChildMoved:" + dataSnapshot.getKey());
+            notif();
+
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            Log.w(TAG, "postComments:onCancelled", databaseError.toException());
+
+        }
+    };
+
     public void notif(){
         //startService(new Intent(this, NotificationService.class));
-        /*NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
 
         List<String> list = new ArrayList<>();
 
         EventModel model = new EventModel("a", "b", "c", "d", "e",list);
         Intent intent = new Intent(this, DetailledEventActivity.class);
         intent.putExtra("event", model);
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         PendingIntent pendingIntent = TaskStackBuilder.create(this)
                 .addNextIntentWithParentStack(intent)
                 .getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);
@@ -203,12 +249,13 @@ public class MainActivity extends BaseActivity
 
         Notification.Builder builder = new Notification.Builder(this)
                 .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
+                .setSmallIcon(R.drawable.polytechnotification)
                 .setContentTitle("ddd")
                 .setContentText("aaa")
+                .setSound(alarmSound)
                 .setContentIntent(pendingIntent);
 
-        notificationManager.notify(1, builder.build());*/
+        notificationManager.notify(1, builder.build());
 
     }
 }
