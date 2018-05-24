@@ -15,7 +15,7 @@ public class MyEventFragmentSortByObjectLost extends EventListFragment {
     @Override
     public Query getQuery(DatabaseReference databaseReference) {
         // All the eventsMyEventFragment
-        Query query = databaseReference.child("events").orderByChild("section").equalTo("Objet Perdu");
+        Query query = databaseReference.child("events").orderByChild("section").equalTo("objet perdu");
         //Query query = databaseReference.child("events").orderByChild("date").startAt().endAt();
         return query;
     }

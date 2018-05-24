@@ -37,8 +37,6 @@ public class BaseFragment extends Fragment {
             public void run() {
                 mProgressDialog.dismiss();
                 int duration = Toast.LENGTH_LONG;
-                Toast toast = Toast.makeText(context, "AUCUN INCIDENT A VISUALISER", duration);
-                toast.show();
             }
         }, time);
     }
