@@ -111,7 +111,7 @@ import java.util.TimerTask;
 
         List<String> list = new ArrayList<>();
 
-        EventModel model = new EventModel("a", "b", "c", "d", "e",list);
+        EventModel model = new EventModel("a", "b","hi", "c", "d", "e",list);
         Intent intent = new Intent(this, DetailledEventActivity.class);
         intent.putExtra("event", model);
         PendingIntent pendingIntent = TaskStackBuilder.create(this)

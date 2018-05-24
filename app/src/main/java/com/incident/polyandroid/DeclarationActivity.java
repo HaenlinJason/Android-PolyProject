@@ -232,7 +232,7 @@ public class DeclarationActivity extends BaseActivity {
 
     private void pushNewsEvent(EventModel event) {
         String key = getFireBaseRoot().child("events").push().getKey();
-        ((MyApplication)this.getApplication()).setIdLastCommit(key);
+        ((MyApplication) this.getApplication()).setIdLastCommit(key);
         Log.d(TAG, "key :" + key);
         Map<String, Object> childUpdate = new HashMap<>();
         childUpdate.put("/events/" + key, event.toMap());
@@ -260,6 +260,6 @@ public class DeclarationActivity extends BaseActivity {
         String type = typeSpinner.getSelectedItem().toString();
         if (type.equals(getString(R.string.default_spinner))) type = " ";
 
-        return new EventModel(title, type, lieu, comment, time, urls);
+        return new EventModel(title, type, importance, lieu, comment, time, urls);
     }
 }
