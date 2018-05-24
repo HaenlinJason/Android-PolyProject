@@ -2,7 +2,9 @@ package com.incident.polyandroid.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -16,7 +18,7 @@ public class BaseFragment extends Fragment {
             mProgressDialog.setCancelable(false);
             mProgressDialog.setMessage("Loading...");
         }
-
+        timerDelayRemoveDialog(2500,context);
         mProgressDialog.show();
     }
 
@@ -28,5 +30,16 @@ public class BaseFragment extends Fragment {
 
     public DatabaseReference getFireBaseRoot() {
         return FirebaseDatabase.getInstance().getReference();
+    }
+
+    public void timerDelayRemoveDialog(long time, final Context context){
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                mProgressDialog.dismiss();
+                int duration = Toast.LENGTH_LONG;
+                Toast toast = Toast.makeText(context, "AUCUN INCIDENT A VISUALISER", duration);
+                toast.show();
+            }
+        }, time);
     }
 }
