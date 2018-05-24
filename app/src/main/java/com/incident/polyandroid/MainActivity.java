@@ -52,7 +52,6 @@ public class MainActivity extends BaseActivity
     List<String> sortLieuArray;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
             /*NotificationService notificationService = new NotificationService();
@@ -125,10 +124,7 @@ public class MainActivity extends BaseActivity
             }
         });
 
-        getFireBaseRoot().addChildEventListener(childEventListener);
-
     }
-
 
 
     @Override
@@ -165,11 +161,11 @@ public class MainActivity extends BaseActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        Log.d(TAG,"nav heay");
+        Log.d(TAG, "nav heay");
         if (id == R.id.toggleButton_notification_activation) {
-            Log.d(TAG,"CLICK2");
+            Log.d(TAG, "CLICK2");
         } else if (id == R.id.nav_gallery) {
-            Log.d(TAG,"CLICK3");
+            Log.d(TAG, "CLICK3");
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -188,37 +184,6 @@ public class MainActivity extends BaseActivity
     }
 
 
-    private ChildEventListener childEventListener = new ChildEventListener() {
-
-
-        @Override
-        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-            Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
-            Log.d(TAG, "onChildAdded:" + dataSnapshot.getValue());
-        }
-
-        @Override
-        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            Log.d(TAG, "onChildChanged:" + dataSnapshot.getKey());
-        }
-
-        @Override
-        public void onChildRemoved(DataSnapshot dataSnapshot) {
-            Log.d(TAG, "onChildRemoved:" + dataSnapshot.getKey());
-        }
-
-        @Override
-        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            Log.d(TAG, "onChildMoved:" + dataSnapshot.getKey());
-            notif();
-
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-            Log.w(TAG, "postComments:onCancelled", databaseError.toException());
-        }
-    };
 
     public void notif(){
         //startService(new Intent(this, NotificationService.class));
@@ -226,7 +191,7 @@ public class MainActivity extends BaseActivity
 
         List<String> list = new ArrayList<>();
 
-        EventModel model = new EventModel("a", "b", "c", "d", "e",list);
+        EventModel model = new EventModel("a", "b", "c", "d", "e","f",list);
         Intent intent = new Intent(this, DetailledEventActivity.class);
         intent.putExtra("event", model);
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -241,7 +206,8 @@ public class MainActivity extends BaseActivity
                 .setContentTitle("ddd")
                 .setContentText("aaa")
                 .setSound(alarmSound)
-                .setContentIntent(pendingIntent);
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
 
         notificationManager.notify(1, builder.build());
 

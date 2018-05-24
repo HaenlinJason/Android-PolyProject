@@ -20,12 +20,16 @@ import com.incident.polyandroid.MyApplication;
 import com.incident.polyandroid.R;
 import com.incident.polyandroid.models.EventModel;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
-    private static final String TAG = "DEBUG_FCM";
+    private static final String TAG = "DEBUGF";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -34,7 +38,39 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getData().size() > 0 && !remoteMessage.getData().get(getString(R.string.payload_id)).equals(((MyApplication) this.getApplication()).getIdLastCommit())) {
             Map<String, String> payload = remoteMessage.getData();
             Log.v(TAG, "Message data payload: " + remoteMessage.getData());
-            buildNotification();
+
+            String a = remoteMessage.getData().get("pictures_url");
+
+            ArrayList<String> picture = new ArrayList<>();
+            if (a == null)
+            {
+                picture = null;
+            }
+            else {
+                try {
+                    JSONArray jsonArray = new JSONArray(a);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        picture.add((String) jsonArray.get(i));
+                    }
+
+                    //System.out.printf(a);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+            EventModel eventModel = new EventModel(
+                    remoteMessage.getData().get("title"),
+                    remoteMessage.getData().get("section"),
+                    remoteMessage.getData().get("hurry"),
+                    remoteMessage.getData().get("locate"),
+                    remoteMessage.getData().get("description"),
+                    remoteMessage.getData().get("date"),
+                    picture
+                    );
+
+            buildNotification(eventModel);
         }
 
         if (remoteMessage.getNotification() != null) {
@@ -42,17 +78,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
     }
 
-    private void buildNotification() {
+    private void buildNotification(EventModel eventModel) {
 
 
         // Creates the PendingIntent
 
         List<String> list = new ArrayList<>();
 
-        EventModel model = new EventModel("a", "b", "c", "d", "e",list);
+        EventModel model = new EventModel("a", "b", "c", "d", "e","f",list);
 
         Intent intent = new Intent(this, DetailledEventActivity.class);
-        intent.putExtra("event", model);
+        intent.putExtra("event", eventModel);
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         PendingIntent pendingIntent = TaskStackBuilder.create(this)
@@ -64,10 +100,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Notification.Builder builder = new Notification.Builder(this)
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.drawable.polytechnotification)
-                .setContentTitle("ddd")
-                .setContentText("aaa")
+                .setContentTitle("Un nouvel incident a été déclaré")
+                .setContentText(eventModel.title)
                 .setSound(alarmSound)
-                .setContentIntent(pendingIntent);
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
 
 
         NotificationManager mNotificationManager =

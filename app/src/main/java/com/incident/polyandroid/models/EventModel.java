@@ -66,6 +66,7 @@ public class EventModel implements Parcelable {
             dest.writeString(title);
             dest.writeString(section);
             dest.writeString(locate);
+            dest.writeString(hurry);
             dest.writeString(description);
             dest.writeString(date);
             dest.writeList(pictures_url);
@@ -90,6 +91,7 @@ public class EventModel implements Parcelable {
             this.title = in.readString();
             this.section = in.readString();
             this.locate = in.readString();
+            this.hurry = in.readString();
             this.description = in.readString();
             this.date = in.readString();
             this.pictures_url = in.readArrayList(null);
