@@ -72,8 +72,8 @@ public class SortByListFragment extends Fragment {
         Bitmap bitmap6 = ((BitmapDrawable) dr6).getBitmap();
         Drawable autres = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap6, 500, 330, true));
 
-        Button button = (Button) rootView.findViewById(R.id.SortByImportance);
-        button.setCompoundDrawablesWithIntrinsicBounds(null, urgent , null, null);
+        ImageButton button = (ImageButton) rootView.findViewById(R.id.SortByImportance);
+        //button.setCompoundDrawablesWithIntrinsicBounds(null, urgent , null, null);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,8 +82,8 @@ public class SortByListFragment extends Fragment {
             }
         });
 
-        Button button2 = (Button) rootView.findViewById(R.id.SortByNew);
-        button2.setCompoundDrawablesWithIntrinsicBounds(null, recent , null, null);
+        ImageButton button2 = (ImageButton) rootView.findViewById(R.id.SortByNew);
+        //button2.setCompoundDrawablesWithIntrinsicBounds(null, recent , null, null);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,8 +102,8 @@ public class SortByListFragment extends Fragment {
             }
         });
 
-        Button button4 = (Button) rootView.findViewById(R.id.SortByAll);
-        button4.setCompoundDrawablesWithIntrinsicBounds(null, all , null, null);
+        ImageButton button4 = (ImageButton) rootView.findViewById(R.id.SortByAll);
+        //button4.setCompoundDrawablesWithIntrinsicBounds(null, all , null, null);
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,8 +123,8 @@ public class SortByListFragment extends Fragment {
             }
         });
 
-        Button button6 = (Button) rootView.findViewById(R.id.SortByAutres);
-        button6.setCompoundDrawablesWithIntrinsicBounds(null, autres , null, null);
+        ImageButton button6 = (ImageButton) rootView.findViewById(R.id.SortByAutres);
+        //button6.setCompoundDrawablesWithIntrinsicBounds(null, autres , null, null);
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
