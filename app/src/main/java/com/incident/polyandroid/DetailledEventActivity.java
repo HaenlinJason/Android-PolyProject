@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.incident.polyandroid.firebase.MyStorage;
-import com.incident.polyandroid.fragment.ImageAdapter;
 import com.incident.polyandroid.models.EventModel;
 
 import java.io.IOException;
