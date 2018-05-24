@@ -31,8 +31,6 @@ import java.util.List;
  */
 
 public class DetailledEventActivity extends AppCompatActivity {
-    private Integer images[] = {R.drawable.common_google_signin_btn_text_light_focused, R.drawable.common_google_signin_btn_text_light_focused, R.drawable.common_google_signin_btn_icon_dark_normal,
-            R.drawable.common_google_signin_btn_text_light_focused,R.drawable.common_google_signin_btn_text_light_focused,R.drawable.common_google_signin_btn_text_light_focused};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,8 +94,6 @@ public class DetailledEventActivity extends AppCompatActivity {
                 ImageView view = (ImageView) findViewById(R.id.zoom);
                 view.setVisibility(View.VISIBLE);
                 storage.loadImageFromUrl(getBaseContext(), view, picture);
-                Toast toast = Toast.makeText(getBaseContext(),"onClick", Toast.LENGTH_SHORT);
-                toast.show();
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
