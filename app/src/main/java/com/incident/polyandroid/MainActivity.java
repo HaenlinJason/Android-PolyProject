@@ -33,6 +33,7 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.incident.polyandroid.firebase.MyDatabase;
 import com.incident.polyandroid.firebase.MyStorage;
 import com.incident.polyandroid.fragment.MyEventFragment;
@@ -64,6 +65,8 @@ public class MainActivity extends BaseActivity
         String silent = settings.getString("Notification", "false");
 
         Log.d(TAG, " Notification Status : " + silent);
+
+        FirebaseMessaging.getInstance().subscribeToTopic("events");
 
         super.onCreate(savedInstanceState);
         hideProgressDialog();
@@ -162,19 +165,11 @@ public class MainActivity extends BaseActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        Log.d(TAG,"nav heay");
+        if (id == R.id.toggleButton_notification_activation) {
+            Log.d(TAG,"CLICK2");
         } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+            Log.d(TAG,"CLICK3");
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -244,7 +239,7 @@ public class MainActivity extends BaseActivity
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         PendingIntent pendingIntent = TaskStackBuilder.create(this)
                 .addNextIntentWithParentStack(intent)
-                .getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);
+                .getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);lkl
 
 
         Notification.Builder builder = new Notification.Builder(this)

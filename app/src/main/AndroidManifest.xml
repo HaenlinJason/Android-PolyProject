@@ -9,6 +9,7 @@
         android:required="true" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -26,6 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".DeclarationActivity"
             android:label="@string/declaration_activity_name"
@@ -34,14 +36,35 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.incident.polyandroid.MainActivity" />
         </activity>
+
         <activity
             android:name=".DetailledEventActivity"
             android:label="detailledActivity"
             android:parentActivityName=".MainActivity">
+
         </activity>
 
-    </application>
+        <service android:name=".firebase.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
 
+        <service android:name=".firebase.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/ic_launcher" />
+
+    </application>
 
 
 </manifest>
