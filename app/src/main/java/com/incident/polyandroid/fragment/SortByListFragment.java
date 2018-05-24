@@ -60,7 +60,7 @@ public class SortByListFragment extends Fragment {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventListFragment fragment = new MyEventFragment();
+                EventListFragment fragment = new MyEventFragmentSortByDate();
                 MoveToAppropriateMyEventFragment(fragment);
             }
         });
@@ -78,7 +78,7 @@ public class SortByListFragment extends Fragment {
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventListFragment fragment = new MyEventFragmentSortByImportance();
+                EventListFragment fragment = new MyEventFragment();
                 MoveToAppropriateMyEventFragment(fragment);
             }
         });
