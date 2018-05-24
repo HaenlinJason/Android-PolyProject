@@ -16,4 +16,5 @@
     <dimen name="spinner_width">173dp</dimen>
     <dimen name="label_spinner">150dp</dimen>
     <dimen name="width_label_image_text">150dp</dimen>
+    <dimen name="gauge_size">15dp</dimen>
 </resources>

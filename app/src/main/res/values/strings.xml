@@ -32,5 +32,10 @@
     <string name="degradation">Degradation</string>
     <string name="default_notification_channel_id">1</string>
     <string name="payload_id">id</string>
+    <string name="default_image_bg">backGround</string>
+    <string name="spacer">spacer</string>
+    <string name="level_high">high</string>
+    <string name="level_mid">mid</string>
+    <string name="level_low">low</string>
 
 </resources>

@@ -1,7 +1,10 @@
 package com.incident.polyandroid.viewholder;
 
 import android.content.Context;
+import android.media.Image;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +21,9 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
     private TextView titleView;
     private TextView locateView;
     private TextView dateView;
+    private ImageView low;
+    private ImageView mid;
+    private ImageView high;
 
     private MyStorage storage;
 
@@ -28,6 +34,9 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
         titleView = itemView.findViewById(R.id.text_title_event);
         locateView = itemView.findViewById(R.id.text_locate_event);
         dateView = itemView.findViewById(R.id.text_date_event);
+        low = itemView.findViewById(R.id.imageView_gravity_1);
+        mid = itemView.findViewById(R.id.imageView_gravity_2);
+        high = itemView.findViewById(R.id.imageView_gravity_3);
 
         storage = new MyStorage();
 
@@ -43,5 +52,42 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
             imageView.setImageResource(R.drawable.polytechnotification);
         else
             storage.loadImageFromUrl(context, imageView, event.pictures_url.get(0));
+
+        if(event.hurry != null) {
+            if (event.hurry.equals("mineur")) {
+                lowGravity(context);
+            } else if (event.hurry.equals("moyen")) {
+                midGravity(context);
+            } else {
+                highGravity(context);
+            }
+        }
+        else
+            midGravity(context);
+
+    }
+
+    private void lowGravity(Context context){
+        low.setVisibility(View.VISIBLE);
+        low.setBackgroundColor(ContextCompat.getColor(context,R.color.low));
+        mid.setVisibility(View.INVISIBLE);
+        high.setVisibility(View.INVISIBLE);
+    }
+
+    private void midGravity(Context context){
+        low.setVisibility(View.VISIBLE);
+        low.setBackgroundColor(ContextCompat.getColor(context,R.color.mid));
+        mid.setVisibility(View.VISIBLE);
+        mid.setBackgroundColor(ContextCompat.getColor(context,R.color.mid));
+        high.setVisibility(View.INVISIBLE);
+    }
+
+    private void highGravity(Context context){
+        low.setVisibility(View.VISIBLE);
+        low.setBackgroundColor(ContextCompat.getColor(context,R.color.high));
+        mid.setVisibility(View.VISIBLE);
+        mid.setBackgroundColor(ContextCompat.getColor(context,R.color.high));
+        high.setVisibility(View.VISIBLE);
+        high.setBackgroundColor(ContextCompat.getColor(context,R.color.high));
     }
 }

@@ -17,6 +17,7 @@ public class EventModel implements Parcelable {
     public String section;
     public String locate;
     public String description;
+    public String hurry;
     public String date;
     public List<String> pictures_url;
 
@@ -24,12 +25,13 @@ public class EventModel implements Parcelable {
 
     }
 
-    public EventModel(String title, String section, String locate, String description, String date, List<String> pictures_url) {
+    public EventModel(String title, String section, String hurry,String locate, String description, String date, List<String> pictures_url) {
         this.title = title;
         this.section = section;
         this.locate = locate;
         this.description = description;
         this.date = date;
+        this.hurry = hurry;
         this.pictures_url = pictures_url;
     }
 
@@ -39,6 +41,7 @@ public class EventModel implements Parcelable {
         result.put("title", title);
         result.put("section", section);
         result.put("locate", locate);
+        result.put("hurry", hurry);
         result.put("description", description);
         result.put("date", date);
         result.put("pictures_url", pictures_url);
@@ -48,7 +51,7 @@ public class EventModel implements Parcelable {
     @Exclude
     @Override
     public String toString() {
-        return getClass().getSimpleName() + "=[TITLE: " + title + "],[SECTION: " + section + "],[LOCATE: " + locate + "],[DATE: " + date + "],[URLS: "+pictures_url+"]";
+        return getClass().getSimpleName() + "=[TITLE: " + title + "],[SECTION: " + section + "],[HURRY, "+hurry+"],[LOCATE: " + locate + "],[DATE: " + date + "],[URLS: "+pictures_url+"]";
     }
 
     @Override
