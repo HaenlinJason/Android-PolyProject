@@ -6,11 +6,13 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -27,6 +29,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static com.incident.polyandroid.MainActivity.PREFS_NAME;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "DEBUGF";
@@ -70,7 +74,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     picture
                     );
 
-            buildNotification(eventModel);
+            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+
+            Boolean silent = settings.getBoolean("Notification", true);
+
+
+            if (silent) {
+                buildNotification(eventModel);
+            }
         }
 
         if (remoteMessage.getNotification() != null) {

@@ -47,33 +47,7 @@ public class SortByListFragment extends Fragment {
         }
 
 
-
-        Drawable dr = getResources().getDrawable(R.drawable.urgent);
-        Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
-        Drawable urgent = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 500, 330, true));
-
-        Drawable dr2 = getResources().getDrawable(R.drawable.degradation);
-        Bitmap bitmap2 = ((BitmapDrawable) dr2).getBitmap();
-        Drawable degradation = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap2, 500, 330, true));
-
-        Drawable dr3 = getResources().getDrawable(R.drawable.recent);
-        Bitmap bitmap3 = ((BitmapDrawable) dr3).getBitmap();
-        Drawable recent = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap3, 500, 330, true));
-
-        Drawable dr4 = getResources().getDrawable(R.drawable.objets);
-        Bitmap bitmap4 = ((BitmapDrawable) dr4).getBitmap();
-        Drawable objets = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap4, 500, 330, true));
-
-        Drawable dr5 = getResources().getDrawable(R.drawable.all);
-        Bitmap bitmap5 = ((BitmapDrawable) dr5).getBitmap();
-        Drawable all = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap5, 500, 330, true));
-
-        Drawable dr6 = getResources().getDrawable(R.drawable.autres);
-        Bitmap bitmap6 = ((BitmapDrawable) dr6).getBitmap();
-        Drawable autres = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap6, 500, 330, true));
-
         ImageButton button = (ImageButton) rootView.findViewById(R.id.SortByImportance);
-        //button.setCompoundDrawablesWithIntrinsicBounds(null, urgent , null, null);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +57,6 @@ public class SortByListFragment extends Fragment {
         });
 
         ImageButton button2 = (ImageButton) rootView.findViewById(R.id.SortByNew);
-        //button2.setCompoundDrawablesWithIntrinsicBounds(null, recent , null, null);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +66,6 @@ public class SortByListFragment extends Fragment {
         });
 
         ImageButton button3 = (ImageButton) rootView.findViewById(R.id.SortByDegradation);
-        //button3.setCompoundDrawablesWithIntrinsicBounds(null, degradation , null, null);
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +75,6 @@ public class SortByListFragment extends Fragment {
         });
 
         ImageButton button4 = (ImageButton) rootView.findViewById(R.id.SortByAll);
-        //button4.setCompoundDrawablesWithIntrinsicBounds(null, all , null, null);
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,7 +85,6 @@ public class SortByListFragment extends Fragment {
 
 
         ImageButton button5 = (ImageButton) rootView.findViewById(R.id.SortByObjets);
-        //button5.setCompoundDrawablesWithIntrinsicBounds(null, objets , null, null);
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +94,6 @@ public class SortByListFragment extends Fragment {
         });
 
         ImageButton button6 = (ImageButton) rootView.findViewById(R.id.SortByAutres);
-        //button6.setCompoundDrawablesWithIntrinsicBounds(null, autres , null, null);
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

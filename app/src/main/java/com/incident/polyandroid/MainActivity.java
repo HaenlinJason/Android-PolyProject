@@ -28,6 +28,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -52,18 +54,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		/*
-		 * NotificationService notificationService = new NotificationService();
-		 * notificationService.notif();
-		 */
 
 		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-		SharedPreferences.Editor editor = settings.edit();
-		editor.putString("Notification", "true");
-		editor.apply();
-		String silent = settings.getString("Notification", "false");
 
-		Log.d(TAG, " Notification Status : " + silent);
+		Boolean silent = settings.getBoolean("Notification", true);
+		//Log.d(TAG, " Notification Status : " + silent);
 
 		FirebaseMessaging.getInstance().subscribeToTopic("events");
 
@@ -72,6 +67,21 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 		setContentView(R.layout.activity_main);
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+		final ToggleButton toggleButton = findViewById(R.id.toggleButton_notification_activation);
+		toggleButton.setChecked(silent);
+		toggleButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				boolean test = toggleButton.isChecked();
+				Toast.makeText(getApplicationContext(), String.valueOf(test),Toast.LENGTH_LONG).show();
+				SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+				SharedPreferences.Editor editor = settings.edit();
+				editor.putBoolean("Notification", test);
+				editor.apply();
+
+			}
+		});
+
 
 		FloatingActionButton fab = findViewById(R.id.fab);
 		fab.setOnClickListener(new View.OnClickListener() {
