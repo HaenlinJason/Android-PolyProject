@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.incident.polyandroid.R;
@@ -91,9 +92,15 @@ public class SortByListFragment extends Fragment {
             }
         });
 
+<<<<<<< HEAD
         Button button_decay = (Button) rootView.findViewById(R.id.SortByDegradation);
         button_decay.setCompoundDrawablesWithIntrinsicBounds(null, degradation , null, null);
         button_decay.setOnClickListener(new View.OnClickListener() {
+=======
+        ImageButton button3 = (ImageButton) rootView.findViewById(R.id.SortByDegradation);
+        //button3.setCompoundDrawablesWithIntrinsicBounds(null, degradation , null, null);
+        button3.setOnClickListener(new View.OnClickListener() {
+>>>>>>> 82a0ef995979ab439b658e7c032676e20f0123b9
             @Override
             public void onClick(View v) {
                 EventListFragment fragment = new MyEventFragmentSortByDegradation();
@@ -112,9 +119,15 @@ public class SortByListFragment extends Fragment {
         });
 
 
+<<<<<<< HEAD
         Button button_objets = (Button) rootView.findViewById(R.id.SortByObjets);
         button_objets.setCompoundDrawablesWithIntrinsicBounds(null, objets , null, null);
         button_objets.setOnClickListener(new View.OnClickListener() {
+=======
+        ImageButton button5 = (ImageButton) rootView.findViewById(R.id.SortByObjets);
+        //button5.setCompoundDrawablesWithIntrinsicBounds(null, objets , null, null);
+        button5.setOnClickListener(new View.OnClickListener() {
+>>>>>>> 82a0ef995979ab439b658e7c032676e20f0123b9
             @Override
             public void onClick(View v) {
                 EventListFragment fragment = new MyEventFragmentSortByImportance();
