@@ -39,7 +39,7 @@
 
         <activity
             android:name=".DetailledEventActivity"
-            android:label="detailledActivity"
+            android:label="@string/label_detailled_event_activity"
             android:parentActivityName=".MainActivity">
 
         </activity>

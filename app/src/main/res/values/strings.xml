@@ -37,5 +37,6 @@
     <string name="level_high">high</string>
     <string name="level_mid">mid</string>
     <string name="level_low">low</string>
+    <string name="label_detailled_event_activity">Détails de l\'incident</string>
 
 </resources>
