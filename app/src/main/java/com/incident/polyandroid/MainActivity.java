@@ -239,7 +239,7 @@ public class MainActivity extends BaseActivity
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         PendingIntent pendingIntent = TaskStackBuilder.create(this)
                 .addNextIntentWithParentStack(intent)
-                .getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);lkl
+                .getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);//lkl
 
 
         Notification.Builder builder = new Notification.Builder(this)

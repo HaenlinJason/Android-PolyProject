@@ -65,6 +65,7 @@ public class EventModel implements Parcelable {
             dest.writeString(locate);
             dest.writeString(description);
             dest.writeString(date);
+            dest.writeList(pictures_url);
         }
 
         public static final Parcelable.Creator<EventModel> CREATOR = new Parcelable.Creator<EventModel>()
@@ -88,6 +89,7 @@ public class EventModel implements Parcelable {
             this.locate = in.readString();
             this.description = in.readString();
             this.date = in.readString();
+            this.pictures_url = in.readArrayList(null);
     }
 
 }

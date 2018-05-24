@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.incident.polyandroid.R;
@@ -38,7 +39,8 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
         locateView.setText(event.locate);
         dateView.setText(event.date);
         if (event.pictures_url == null)
-            storage.loadImageFromPath(context, imageView, "image/panda-kawaii-chibi.jpg");
+            //storage.loadImageFromPath(context, imageView, "image/panda-kawaii-chibi.jpg");
+            imageView.setImageResource(R.drawable.polytechnotification);
         else
             storage.loadImageFromUrl(context, imageView, event.pictures_url.get(0));
     }
