@@ -11,7 +11,7 @@ public class MyEventFragmentSortByDegradation extends EventListFragment {
     @Override
     public Query getQuery(DatabaseReference databaseReference) {
         // All the eventsMyEventFragment
-        Query query = databaseReference.child("events").orderByChild("section").equalTo("degradation");
+        Query query = databaseReference.child("events").orderByChild("section").equalTo("dégradation");
         //Query query = databaseReference.child("events").orderByChild("date").startAt().endAt();
         return query;
     }

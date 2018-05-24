@@ -44,11 +44,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/LabelLieu"
         android:layout_marginStart="@dimen/margin"
-        android:layout_marginTop="@dimen/margin"
+        android:layout_marginTop="8dp"
         android:text="@string/type_d_incident"
         android:textSize="@dimen/declaration_text_size"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LabelLieu" />
+        app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView" />
 
     <TextView
         android:id="@+id/LabelUrgence"
@@ -62,19 +62,6 @@
         android:textSize="@dimen/declaration_text_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LabelType" />
-
-    <Spinner
-        android:id="@+id/spinnerLieu"
-        android:layout_width="@dimen/spinner_width"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/spinnerUrgence"
-        android:layout_below="@+id/EditTextTitre"
-        android:layout_marginEnd="@dimen/margin"
-        android:layout_marginStart="@dimen/margin"
-        android:layout_marginTop="@dimen/margin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/LabelLieu"
-        app:layout_constraintTop_toBottomOf="@+id/EditTextTitre" />
 
     <Spinner
         android:id="@+id/spinnerUrgence"
@@ -96,11 +83,11 @@
         android:layout_alignBottom="@+id/LabelType"
         android:layout_marginEnd="@dimen/margin"
         android:layout_marginStart="@dimen/margin"
-        android:layout_marginTop="@dimen/margin"
+        android:layout_marginTop="8dp"
         android:layout_toEndOf="@+id/LabelLieu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/LabelType"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerLieu" />
+        app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView" />
 
     <TextView
         android:id="@+id/LabelImage"
@@ -202,6 +189,18 @@
         app:layout_constraintEnd_toEndOf="@+id/buttonTakePhoto"
         app:layout_constraintStart_toStartOf="@+id/buttonTakePhoto"
         app:layout_constraintTop_toBottomOf="@+id/buttonTakePhoto" />
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:hint="choisir un lieu..."
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/LabelLieu"
+        app:layout_constraintTop_toBottomOf="@+id/EditTextTitre" />
 
 </android.support.constraint.ConstraintLayout>
 </ScrollView>

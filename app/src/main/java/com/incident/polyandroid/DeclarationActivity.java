@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -23,6 +24,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.UploadTask;
+import com.incident.polyandroid.adapter.CodesArrayAdapter;
 import com.incident.polyandroid.models.EventModel;
 
 import java.io.ByteArrayOutputStream;
@@ -46,7 +48,7 @@ public class DeclarationActivity extends BaseActivity {
     private List<Bitmap> bitmap;
     private List<String> urls;
 
-    Spinner lieuSpinner;
+    AutoCompleteTextView mAutoCompleteTextView;
     Spinner importanceSpinner;
     Spinner typeSpinner;
     EditText eventTitle;
@@ -60,7 +62,7 @@ public class DeclarationActivity extends BaseActivity {
         bitmap = new ArrayList<>();
         urls = new ArrayList<>();
 
-        lieuSpinner = findViewById(R.id.spinnerLieu);
+        mAutoCompleteTextView = findViewById(R.id.autoCompleteTextView);
         importanceSpinner = findViewById(R.id.spinnerUrgence);
         typeSpinner = findViewById(R.id.spinnerType);
 
@@ -93,9 +95,9 @@ public class DeclarationActivity extends BaseActivity {
                     dataLieu.add(singleSnapshot.getValue(String.class));
                 }
 
-                ArrayAdapter<String> lieuAdapter = new ArrayAdapter(DeclarationActivity.this, android.R.layout.simple_spinner_item, dataLieu);
+                CodesArrayAdapter lieuAdapter = new CodesArrayAdapter(DeclarationActivity.this, android.R.layout.simple_dropdown_item_1line, dataLieu);
                 lieuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                lieuSpinner.setAdapter(lieuAdapter);
+                mAutoCompleteTextView.setAdapter(lieuAdapter);
             }
 
             @Override
@@ -251,7 +253,7 @@ public class DeclarationActivity extends BaseActivity {
         String title = eventTitle.getText().toString();
         String comment = commentary.getText().toString();
 
-        String lieu = lieuSpinner.getSelectedItem().toString();
+        String lieu = mAutoCompleteTextView.getText().toString();
         if (lieu.equals(getString(R.string.default_spinner))) lieu = " ";
 
         String importance = importanceSpinner.getSelectedItem().toString();

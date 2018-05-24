@@ -43,173 +43,141 @@ import com.incident.polyandroid.models.EventModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String TAG = "DEBUG_DB";
-    public static final String PREFS_NAME = "MyPrefsFile";
-    Spinner sortLieu;
-    List<String> sortLieuArray;
+	private static final String TAG = "DEBUG_DB";
+	public static final String PREFS_NAME = "MyPrefsFile";
+	Spinner sortLieu;
+	List<String> sortLieuArray;
 
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		/*
+		 * NotificationService notificationService = new NotificationService();
+		 * notificationService.notif();
+		 */
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-            /*NotificationService notificationService = new NotificationService();
-        notificationService.notif();*/
+		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putString("Notification", "true");
+		editor.apply();
+		String silent = settings.getString("Notification", "false");
 
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString("Notification", "true");
-        editor.apply();
-        String silent = settings.getString("Notification", "false");
+		Log.d(TAG, " Notification Status : " + silent);
 
-        Log.d(TAG, " Notification Status : " + silent);
+		FirebaseMessaging.getInstance().subscribeToTopic("events");
 
-        FirebaseMessaging.getInstance().subscribeToTopic("events");
+		super.onCreate(savedInstanceState);
+		hideProgressDialog();
+		setContentView(R.layout.activity_main);
+		Toolbar toolbar = findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 
-        super.onCreate(savedInstanceState);
-        hideProgressDialog();
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+		FloatingActionButton fab = findViewById(R.id.fab);
+		fab.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				createDeclarationActivity(view);
+			}
+		});
+		DrawerLayout drawer = findViewById(R.id.drawer_layout);
+		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open,
+				R.string.navigation_drawer_close);
+		drawer.addDrawerListener(toggle);
+		toggle.syncState();
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createDeclarationActivity(view);
-            }
-        });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+		sortLieu = findViewById(R.id.spinnerSortLieu);
+		sortLieuArray = new ArrayList<>();
+		sortLieuArray.add(getString(R.string.default_spinner));
 
-        sortLieu = findViewById(R.id.spinnerSortLieu);
-        sortLieuArray = new ArrayList<>();
-        sortLieuArray.add(getString(R.string.default_spinner));
+		NavigationView navigationView = findViewById(R.id.nav_view);
+		navigationView.setNavigationItemSelectedListener(this);
 
+		if (savedInstanceState == null) {
+			FragmentManager fragmentManager = getSupportFragmentManager();
+			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+			// MyEventFragment fragment = new MyEventFragment();
+			SortByListFragment fragment = new SortByListFragment();
+			// fragmentTransaction.add(R.id.main_content_fragment, fragment);
+			fragmentTransaction.add(R.id.main_content_fragment, fragment);
+			fragmentTransaction.commit();
+		}
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+		getFireBaseRoot().child("enum").child("lieu").addListenerForSingleValueEvent(new ValueEventListener() {
+			@Override
+			public void onDataChange(DataSnapshot dataSnapshot) {
+				Log.d(TAG, "onDataChange : " + dataSnapshot.getValue());
 
-        if (savedInstanceState == null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            //MyEventFragment fragment = new MyEventFragment();
-            SortByListFragment fragment = new SortByListFragment();
-            //fragmentTransaction.add(R.id.main_content_fragment, fragment);
-            fragmentTransaction.add(R.id.main_content_fragment, fragment);
-            fragmentTransaction.commit();
-        }
+				for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+					sortLieuArray.add(singleSnapshot.getValue(String.class));
+				}
 
-        getFireBaseRoot().child("enum").child("lieu").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(TAG, "onDataChange : " + dataSnapshot.getValue());
+				ArrayAdapter<String> lieuAdapter = new ArrayAdapter(MainActivity.this,
+						android.R.layout.simple_spinner_item, sortLieuArray);
+				lieuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				sortLieu.setAdapter(lieuAdapter);
+			}
 
-                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                    sortLieuArray.add(singleSnapshot.getValue(String.class));
-                }
+			@Override
+			public void onCancelled(DatabaseError databaseError) {
 
-                ArrayAdapter<String> lieuAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_spinner_item, sortLieuArray);
-                lieuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                sortLieu.setAdapter(lieuAdapter);
-            }
+			}
+		});
+	}
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+	@Override
+	public void onBackPressed() {
+		DrawerLayout drawer = findViewById(R.id.drawer_layout);
+		if (drawer.isDrawerOpen(GravityCompat.START)) {
+			drawer.closeDrawer(GravityCompat.START);
+		} else {
+			super.onBackPressed();
+		}
+	}
 
-            }
-        });
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
 
-    }
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
 
+		// noinspection SimplifiableIfStatement
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+		return super.onOptionsItemSelected(item);
+	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+	@SuppressWarnings("StatementWithEmptyBody")
+	@Override
+	public boolean onNavigationItemSelected(MenuItem item) {
+		// Handle navigation view item clicks here.
+		int id = item.getItemId();
+		Log.d(TAG, "nav heay");
+		if (id == R.id.toggleButton_notification_activation) {
+			Log.d(TAG, "CLICK2");
+		} else if (id == R.id.nav_gallery) {
+			Log.d(TAG, "CLICK3");
+		}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+		DrawerLayout drawer = findViewById(R.id.drawer_layout);
+		drawer.closeDrawer(GravityCompat.START);
+		return true;
+	}
 
-        //noinspection SimplifiableIfStatement
+	@Override
+	public void setContentView(View view) {
+		super.setContentView(view);
+	}
 
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        Log.d(TAG, "nav heay");
-        if (id == R.id.toggleButton_notification_activation) {
-            Log.d(TAG, "CLICK2");
-        } else if (id == R.id.nav_gallery) {
-            Log.d(TAG, "CLICK3");
-        }
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    @Override
-    public void setContentView(View view) {
-        super.setContentView(view);
-    }
-
-    public void createDeclarationActivity(View view) {
-        Intent intent = new Intent(this, DeclarationActivity.class);
-        startActivity(intent);
-    }
-
-
-
-    public void notif(){
-        //startService(new Intent(this, NotificationService.class));
-        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-
-        List<String> list = new ArrayList<>();
-
-        EventModel model = new EventModel("a", "b", "c", "d", "e","f",list);
-        Intent intent = new Intent(this, DetailledEventActivity.class);
-        intent.putExtra("event", model);
-        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        PendingIntent pendingIntent = TaskStackBuilder.create(this)
-                .addNextIntentWithParentStack(intent)
-                .getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);//lkl
-
-
-        Notification.Builder builder = new Notification.Builder(this)
-                .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.drawable.polytechnotification)
-                .setContentTitle("ddd")
-                .setContentText("aaa")
-                .setSound(alarmSound)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true);
-
-        notificationManager.notify(1, builder.build());
-
-    }
+	public void createDeclarationActivity(View view) {
+		Intent intent = new Intent(this, DeclarationActivity.class);
+		startActivity(intent);
+	}
 }
