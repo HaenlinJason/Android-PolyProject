@@ -195,22 +195,16 @@ public class MainActivity extends BaseActivity
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
             Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
             Log.d(TAG, "onChildAdded:" + dataSnapshot.getValue());
-
-            notif();
         }
 
         @Override
         public void onChildChanged(DataSnapshot dataSnapshot, String s) {
             Log.d(TAG, "onChildChanged:" + dataSnapshot.getKey());
-            notif();
-
         }
 
         @Override
         public void onChildRemoved(DataSnapshot dataSnapshot) {
             Log.d(TAG, "onChildRemoved:" + dataSnapshot.getKey());
-            notif();
-
         }
 
         @Override
@@ -223,7 +217,6 @@ public class MainActivity extends BaseActivity
         @Override
         public void onCancelled(DatabaseError databaseError) {
             Log.w(TAG, "postComments:onCancelled", databaseError.toException());
-
         }
     };
 
