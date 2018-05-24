@@ -72,8 +72,7 @@ public class SortByListFragment extends Fragment {
         Bitmap bitmap6 = ((BitmapDrawable) dr6).getBitmap();
         Drawable autres = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap6, 500, 330, true));
 
-        Button button_hurry = (Button) rootView.findViewById(R.id.SortByImportance);
-        button_hurry.setCompoundDrawablesWithIntrinsicBounds(null, urgent , null, null);
+        ImageButton button_hurry = (ImageButton) rootView.findViewById(R.id.SortByImportance);
         button_hurry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,8 +81,7 @@ public class SortByListFragment extends Fragment {
             }
         });
 
-        Button button_recent = (Button) rootView.findViewById(R.id.SortByNew);
-        button_recent.setCompoundDrawablesWithIntrinsicBounds(null, recent , null, null);
+        ImageButton button_recent = (ImageButton) rootView.findViewById(R.id.SortByNew);
         button_recent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,15 +90,8 @@ public class SortByListFragment extends Fragment {
             }
         });
 
-<<<<<<< HEAD
-        Button button_decay = (Button) rootView.findViewById(R.id.SortByDegradation);
-        button_decay.setCompoundDrawablesWithIntrinsicBounds(null, degradation , null, null);
+        ImageButton button_decay = (ImageButton) rootView.findViewById(R.id.SortByDegradation);
         button_decay.setOnClickListener(new View.OnClickListener() {
-=======
-        ImageButton button3 = (ImageButton) rootView.findViewById(R.id.SortByDegradation);
-        //button3.setCompoundDrawablesWithIntrinsicBounds(null, degradation , null, null);
-        button3.setOnClickListener(new View.OnClickListener() {
->>>>>>> 82a0ef995979ab439b658e7c032676e20f0123b9
             @Override
             public void onClick(View v) {
                 EventListFragment fragment = new MyEventFragmentSortByDegradation();
@@ -108,35 +99,25 @@ public class SortByListFragment extends Fragment {
             }
         });
 
-        Button button_all = (Button) rootView.findViewById(R.id.SortByAll);
-        button_all.setCompoundDrawablesWithIntrinsicBounds(null, all , null, null);
+        ImageButton button_all = (ImageButton) rootView.findViewById(R.id.SortByAll);
         button_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventListFragment fragment = new MyEventFragmentSortByImportance();
+                EventListFragment fragment = new MyEventFragment();
                 MoveToAppropriateMyEventFragment(fragment);
             }
         });
 
-
-<<<<<<< HEAD
-        Button button_objets = (Button) rootView.findViewById(R.id.SortByObjets);
-        button_objets.setCompoundDrawablesWithIntrinsicBounds(null, objets , null, null);
+        ImageButton button_objets = (ImageButton) rootView.findViewById(R.id.SortByObjets);
         button_objets.setOnClickListener(new View.OnClickListener() {
-=======
-        ImageButton button5 = (ImageButton) rootView.findViewById(R.id.SortByObjets);
-        //button5.setCompoundDrawablesWithIntrinsicBounds(null, objets , null, null);
-        button5.setOnClickListener(new View.OnClickListener() {
->>>>>>> 82a0ef995979ab439b658e7c032676e20f0123b9
             @Override
             public void onClick(View v) {
-                EventListFragment fragment = new MyEventFragmentSortByImportance();
+                EventListFragment fragment = new MyEventFragmentSortByObjectLost();
                 MoveToAppropriateMyEventFragment(fragment);
             }
         });
 
-        Button button_others = (Button) rootView.findViewById(R.id.SortByAutres);
-        button_others.setCompoundDrawablesWithIntrinsicBounds(null, autres , null, null);
+        ImageButton button_others = (ImageButton) rootView.findViewById(R.id.SortByAutres);
         button_others.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
