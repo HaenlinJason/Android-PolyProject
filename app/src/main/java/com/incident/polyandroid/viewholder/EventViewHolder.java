@@ -27,6 +27,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
     private ImageView mid;
     private ImageView high;
     private TextView photoCountView;
+    private TextView commentaire;
 
     private MyStorage storage;
 
@@ -41,6 +42,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
         mid = itemView.findViewById(R.id.imageView_gravity_2);
         high = itemView.findViewById(R.id.imageView_gravity_3);
         photoCountView = itemView.findViewById(R.id.textView3);
+        commentaire = itemView.findViewById(R.id.text_commentaire);
 
         storage = new MyStorage();
 
@@ -54,6 +56,15 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
         dateView.setText(event.date);
         if (context.getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT) {
             photoCountView.setVisibility(View.VISIBLE);
+            commentaire.setVisibility(View.VISIBLE);
+            if (event.description.equals("")){
+                commentaire.setText("Commentaire : non");
+            }
+            else {
+                commentaire.setText("Commentaire :oui");
+            }
+
+
             if (event.pictures_url ==null){
                 photoCountView.setText("Nombre de photos : "+"0");
 
