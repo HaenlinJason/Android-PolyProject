@@ -1,6 +1,7 @@
 package com.incident.polyandroid.viewholder;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.media.Image;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.stats.WakeLock;
 import com.incident.polyandroid.R;
 import com.incident.polyandroid.firebase.MyStorage;
 import com.incident.polyandroid.models.EventModel;
@@ -24,6 +26,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
     private ImageView low;
     private ImageView mid;
     private ImageView high;
+    private TextView photoCountView;
 
     private MyStorage storage;
 
@@ -37,16 +40,29 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
         low = itemView.findViewById(R.id.imageView_gravity_1);
         mid = itemView.findViewById(R.id.imageView_gravity_2);
         high = itemView.findViewById(R.id.imageView_gravity_3);
+        photoCountView = itemView.findViewById(R.id.textView3);
 
         storage = new MyStorage();
 
     }
 
     public void bindToEvent(EventModel event, Context context) {
+
         sectionView.setText(event.section);
         titleView.setText(event.title);
         locateView.setText(event.locate);
         dateView.setText(event.date);
+        if (context.getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT) {
+            photoCountView.setVisibility(View.VISIBLE);
+            if (event.pictures_url ==null){
+                photoCountView.setText("Nombre de photos : "+"0");
+
+            }
+            else {
+                photoCountView.setText("Nombre de photos : "+event.pictures_url.size());
+            }
+        }
+
         if (event.pictures_url == null)
             //storage.loadImageFromPath(context, imageView, "image/panda-kawaii-chibi.jpg");
             imageView.setImageResource(R.drawable.polytechnotification);

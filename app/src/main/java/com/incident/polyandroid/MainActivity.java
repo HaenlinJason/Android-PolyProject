@@ -73,7 +73,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 			@Override
 			public void onClick(View v) {
 				boolean test = toggleButton.isChecked();
-				Toast.makeText(getApplicationContext(), String.valueOf(test),Toast.LENGTH_LONG).show();
 				SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 				SharedPreferences.Editor editor = settings.edit();
 				editor.putBoolean(getString(R.string.notification_state), test);
@@ -96,9 +95,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 		drawer.addDrawerListener(toggle);
 		toggle.syncState();
 
-		sortLieu = findViewById(R.id.spinnerSortLieu);
-		sortLieuArray = new ArrayList<>();
-		sortLieuArray.add(getString(R.string.default_spinner));
 
 		NavigationView navigationView = findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
@@ -113,26 +109,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 			fragmentTransaction.commit();
 		}
 
-		getFireBaseRoot().child("enum").child("lieu").addListenerForSingleValueEvent(new ValueEventListener() {
-			@Override
-			public void onDataChange(DataSnapshot dataSnapshot) {
-				Log.d(TAG, "onDataChange : " + dataSnapshot.getValue());
-
-				for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-					sortLieuArray.add(singleSnapshot.getValue(String.class));
-				}
-
-				ArrayAdapter<String> lieuAdapter = new ArrayAdapter(MainActivity.this,
-						android.R.layout.simple_spinner_item, sortLieuArray);
-				lieuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-				sortLieu.setAdapter(lieuAdapter);
-			}
-
-			@Override
-			public void onCancelled(DatabaseError databaseError) {
-
-			}
-		});
 	}
 
 	@Override

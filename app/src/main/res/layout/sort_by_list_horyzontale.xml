@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,61 +12,126 @@
     android:layout_height="match_parent">
 
 
-    <Button
+    <ImageButton
         android:id="@+id/SortByImportance"
         android:layout_width="175dp"
-        android:layout_height="145dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="15dp"
         android:layout_weight="1"
-        android:text="@string/sort_incident_importance"
+        android:background="@drawable/urgent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SortByNew" />
 
+    <TextView
+        android:textSize="20sp"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:text="Incidents graves"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@id/SortByImportance" />
 
-    <Button
+
+    <ImageButton
         android:id="@+id/SortByAll"
         android:layout_width="175dp"
-        android:layout_height="145dp"
+        android:layout_height="175dp"
         android:layout_weight="1"
-        android:text="@string/sort_all_incident"
+        android:background="@drawable/all"
+        android:drawableTop="@drawable/degradation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <TextView
+        android:textSize="20sp"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:text="Tous les incidents"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@id/SortByAll" />
+
+    <ImageButton
         android:id="@+id/SortByNew"
         android:layout_width="175dp"
-        android:layout_height="145dp"
+        android:layout_height="175dp"
         android:layout_weight="1"
-        android:text="@string/incidents_recents"
+        android:drawableTop="@drawable/degradation"
+        android:background="@drawable/recent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <TextView
+        android:textSize="20sp"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:text="Incidents récents"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/SortByNew" />
+
+    <ImageButton
         android:id="@+id/SortByDegradation"
         android:layout_width="175dp"
-        android:layout_height="145dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="15dp"
         android:layout_weight="1"
-        android:text="@string/degradation"
+        android:background="@drawable/degradation"
+        android:drawableTop="@drawable/degradation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SortByAll" />
 
-    <Button
+    <TextView
+        android:textSize="20sp"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:text="Dégradations"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@id/SortByDegradation" />
+
+
+    <ImageButton
         android:id="@+id/SortByObjets"
         android:layout_width="175dp"
-        android:layout_height="145dp"
-
-        android:text="Objets perdus"
+        android:layout_height="175dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginStart="34dp"
+        android:background="@drawable/objets"
+        android:drawableTop="@drawable/degradation"
         app:layout_constraintEnd_toStartOf="@+id/SortByNew"
         app:layout_constraintStart_toEndOf="@+id/SortByAll"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <TextView
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="34dp"
+        android:gravity="center"
+        android:text="Objets perdus"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/SortByNew"
+        app:layout_constraintBottom_toBottomOf="@id/SortByObjets" />
+
+    <ImageButton
         android:id="@+id/SortByAutres"
         android:layout_width="175dp"
-        android:layout_height="145dp"
-
-        android:text="Autres Incidents"
+        android:layout_height="175dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/informatique"
         app:layout_constraintEnd_toStartOf="@+id/SortByImportance"
         app:layout_constraintStart_toEndOf="@+id/SortByDegradation"
         app:layout_constraintTop_toBottomOf="@+id/SortByObjets" />
 
+    <TextView
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginEnd="34dp"
+        android:text="Problèmes informatiques"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/SortByImportance"
+        app:layout_constraintBottom_toBottomOf="@id/SortByAutres" />
+
 </android.support.constraint.ConstraintLayout>
+</ScrollView>

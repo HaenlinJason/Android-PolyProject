@@ -99,8 +99,8 @@
 
         <ImageView
             android:id = "@+id/zoom"
-            android:layout_width="650dp"
-            android:layout_height="450dp"
+            android:layout_width="750dp"
+            android:layout_height="580dp"
             />
 
     </RelativeLayout>

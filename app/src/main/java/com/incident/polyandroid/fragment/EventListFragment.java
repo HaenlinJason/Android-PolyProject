@@ -2,6 +2,7 @@ package com.incident.polyandroid.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -70,9 +71,9 @@ public abstract class EventListFragment extends BaseFragment {
             mAdapter = new FirebaseRecyclerAdapter<EventModel, EventViewHolder>(options) {
                 @Override
                 public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                    final View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
-                    hideProgressDialog();
-                    return new EventViewHolder(itemView);
+                        final View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
+                        hideProgressDialog();
+                        return new EventViewHolder(itemView);
                 }
 
                 @Override
@@ -83,8 +84,8 @@ public abstract class EventListFragment extends BaseFragment {
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast toast = Toast.makeText(mContext, "event : " + position, Toast.LENGTH_SHORT);
-                            toast.show();
+                            /*Toast toast = Toast.makeText(mContext, "event : " + position, Toast.LENGTH_SHORT);
+                            toast.show();*/
                             Intent intent = new Intent(mContext, DetailledEventActivity.class);
                             intent.putExtra("event", model);
                             startActivity(intent);

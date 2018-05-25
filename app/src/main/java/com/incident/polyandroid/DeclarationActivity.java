@@ -77,12 +77,18 @@ public class DeclarationActivity extends BaseActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showProgressDialog();
-                if (!bitmap.isEmpty()) {
-                    for (Bitmap img : bitmap) {
-                        encodeBitmapAndSaveToFirebase(img);
-                    }
-                } else pushNewsEvent(createEventModel());
+                if (eventTitle.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(), "Veuillez remplir au moins le titre pour déclarer un incident",
+                            Toast.LENGTH_LONG).show();
+                }
+                else {
+                    showProgressDialog();
+                    if (!bitmap.isEmpty()) {
+                        for (Bitmap img : bitmap) {
+                            encodeBitmapAndSaveToFirebase(img);
+                        }
+                    } else pushNewsEvent(createEventModel());
+                }
             }
         });
 
