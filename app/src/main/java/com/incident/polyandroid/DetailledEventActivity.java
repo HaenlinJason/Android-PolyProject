@@ -67,8 +67,8 @@ public class DetailledEventActivity extends AppCompatActivity {
         //LinearLayout imageGallery = (LinearLayout) findViewById(R.id.imageGallery);
         LinearLayout imageGallery = (LinearLayout ) findViewById(R.id.imageGallery);
         if (pictures == null) {
-            imageGallery.getLayoutParams().height = 600;
-            imageGallery.getLayoutParams().width = 600;
+            imageGallery.getLayoutParams().height = 900;
+            imageGallery.getLayoutParams().width = 900;
             imageGallery.requestLayout();
             imageGallery.addView(getImageView(R.drawable.polytechnotification));
         }
@@ -86,7 +86,7 @@ public class DetailledEventActivity extends AppCompatActivity {
 
     private View getImageView(Integer image) {
         ImageView imageView = new ImageView(getApplicationContext());
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, 0);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(900, 900);
         //lp.setMargins(0, 0, 0, 0);
         imageView.setImageResource(image);
         imageView.setLayoutParams(lp);
